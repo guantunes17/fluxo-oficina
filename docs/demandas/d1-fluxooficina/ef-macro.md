@@ -3,9 +3,9 @@
 | Campo | Valor |
 |---|---|
 | Demanda | d1-fluxooficina |
-| Versão | 0.4 (inclui análise da Pitz, respostas do Roberto e o cliente final nº 1, de 30/10/2026) |
+| Versão | 0.7 (push ao mecânico e ordem atribuída ao mecânico, protótipo exploratório rodada 2, de 17/11/2026) |
 | Status | Rascunho |
-| Data | 30/10/2026 |
+| Data | 17/11/2026 |
 | Autor | `<a preencher>` |
 | Produto / Revisor | Grupo da FIAP (ponto focal) |
 | Origem | `brief.md` desta pasta e `descoberta/arvore.md` |
@@ -22,7 +22,7 @@
 - [2. Escopo](#2-escopo)
 - [3. Atores e Permissões](#3-atores-e-permissões)
 - [4. Modelo de Dados](#4-modelo-de-dados)
-- [5. Requisitos Funcionais](#5-requisitos-funcionais): [RF-01](#rf-01), [RF-02](#rf-02), [RF-03](#rf-03), [RF-04](#rf-04), [RF-05](#rf-05)
+- [5. Requisitos Funcionais](#5-requisitos-funcionais): [RF-01](#rf-01), [RF-02](#rf-02), [RF-03](#rf-03), [RF-04](#rf-04), [RF-05](#rf-05), [RF-06](#rf-06), [RF-07](#rf-07)
 - [6. Regras de Negócio](#6-regras-de-negócio)
 - [7. Fluxos](#7-fluxos)
 - [8. Premissas e Constraints](#8-premissas-e-constraints)
@@ -76,6 +76,8 @@ Todas as capacidades abaixo têm confiança média. Elas entram porque o recorte
 - Status do serviço por etapa (RF-03). Hipótese HIP-04.
 - Aviso de status ao cliente final (RF-04). Hipótese HIP-04.
 - Cadastro de fornecedores (RF-05). Apoia HIP-01.
+- Notificação push ao mecânico no celular (RF-07). Decidido pela pessoa em 17/11/2026. Não nasce de hipótese (HIP-NN).
+- Abertura da ordem de serviço pela recepção (RF-06). Decidido pela pessoa em 17/11/2026, depois do protótipo exploratório. Não nasce de hipótese (HIP-NN).
 
 ### Should-have
 
@@ -114,7 +116,8 @@ Os fornecedores já respondem por WhatsApp (`NOTA-R`), o que sustenta o item 1. 
 
 ### Arquitetura alvo
 
-Não gerada nesta rodada. A skill `target-architecture-from-assessment` não estava disponível. (P-19)
+- Desenho: [arquitetura-alvo.html](tecnico/arquitetura-alvo/arquitetura-alvo.html)
+- Documento: [arquitetura-alvo.md](tecnico/arquitetura-alvo/arquitetura-alvo.md)
 
 ---
 
@@ -124,19 +127,31 @@ Não gerada nesta rodada. A skill `target-architecture-from-assessment` não est
 
 | Ator | Tipo | Papel |
 |---|---|---|
-| Dono | Humano | Decide o fornecedor e decide a compra. Conhece fornecedores de outros serviços (impressão do Roberto). |
-| Gerente | Humano | Pesquisa o preço das peças. Na Oficina B, quem pesquisa o preço é o gerente. |
-| Mecânico | Humano | Faz o diagnóstico e o serviço. Não decide a pesquisa de preço. Prefere interface por áudio. |
-| Atendente/recepção | Humano | Fala com o cliente. Não foi ouvido nas entrevistas. |
+| Dono | Humano | Decide o fornecedor e decide a compra. Conhece fornecedores de outros serviços (impressão do Roberto). Usa o painel web no computador. |
+| Gerente | Humano | Pesquisa o preço das peças. Na Oficina B, quem pesquisa o preço é o gerente. Usa o painel web no computador. |
+| Mecânico | Humano | Faz o diagnóstico e o serviço. Não decide a pesquisa de preço. Prefere interface por áudio. Usa o app mobile (Expo) no celular, sempre com internet. |
+| Atendente/recepção | Humano | Fala com o cliente e abre a ordem de serviço (RF-06). Usa o painel web no computador. Não foi ouvido nas entrevistas. |
 | Cliente final | Humano | Deixa o carro e, segundo o dono da Oficina A, cobra o status. Um cliente foi ouvido (`E3`) e não cobrou. Quer registro do serviço e lembretes de revisão. |
 | Fornecedor | Humano (externo) | Recebe o pedido de cotação e informa preço e prazo. |
 | Agente de voz | Sistema | Transcreve e estrutura o áudio do mecânico. |
 | Agente de cotação | Sistema | Envia pedidos de cotação e consolida as respostas. |
 | Agente de aviso | Sistema | Avisa o cliente quando a etapa muda. |
 
+### Superfícies
+
+Decisão da pessoa em 17/11/2026 (Origem: decisão de plataforma de 17/11/2026):
+
+| Superfície | Quem usa | Tecnologia | Conexão |
+|---|---|---|---|
+| App mobile | Mecânico | Expo (React Native), com o design system XPRINTS adaptado | Sempre com internet |
+| Painel web | Dono, gerente e recepção | Aplicação web para computador, com o design system XPRINTS web | Sempre com internet |
+| WhatsApp | Cliente final e fornecedor | Canal de mensagem, sem tela própria | — |
+
+O mecânico muda a etapa e grava o diagnóstico no app. O painel completo (quadro por etapa, cotação, fornecedores, histórico de avisos) existe só no computador. O código fica em três repositórios (app mobile, painel web e serviço de agentes), e a especificação fica neste repositório.
+
 ### Matriz de Permissões (Sugestão)
 
-A fonte confirma só duas linhas: o mecânico não pesquisa preço, e o dono decide o fornecedor. O restante é proposta. Controle de acesso não foi pensado nas fontes. (P-10)
+A fonte confirma só duas linhas: o mecânico não pesquisa preço, e o dono decide o fornecedor. As linhas "Ver histórico de avisos", "Abrir ordem de serviço" e "Cancelar serviço" foram decididas pela pessoa em 17/11/2026. A linha "Atribuir ordem a um mecânico" é Sugestão, e quem atribui está em aberto (P-29). A linha "Receber notificação push" vem da decisão de 17/11/2026 (Origem: 2.61E (protótipo exploratório)). O restante é proposta. Controle de acesso não foi pensado nas fontes. (P-10)
 
 | Ação | Dono | Gerente | Mecânico | Recepção | Cliente final |
 |---|---|---|---|---|---|
@@ -147,6 +162,11 @@ A fonte confirma só duas linhas: o mecânico não pesquisa preço, e o dono dec
 | Escolher o fornecedor | Pode | Não pode | Não pode | Não pode | — |
 | Mudar a etapa do serviço | Pode | Pode | Pode | Pode | Não pode |
 | Ver o painel de status | Pode | Pode | Pode | Pode | Não pode |
+| Ver histórico de avisos ao cliente | Pode | Pode | — | Pode | — |
+| Abrir ordem de serviço | — | — | — | Pode | — |
+| Atribuir ordem a um mecânico | Pode | Pode | — | Pode | — |
+| Receber notificação push no celular | — | — | Pode | — | — |
+| Cancelar serviço | Pode | Pode | Não pode | Não pode | — |
 | Receber aviso de status | — | — | — | — | Pode |
 
 ---
@@ -172,12 +192,13 @@ A fonte confirma só duas linhas: o mecânico não pesquisa preço, e o dono dec
 |---|---|
 | Cliente | nome do cliente; telefone do cliente |
 | Veículo | placa; modelo |
-| Ordem de Serviço | número da OS; sintoma relatado; áudio do mecânico; transcrição; diagnóstico; etapa atual; data de entrada |
-| Item de peça | descrição da peça; quantidade |
+| Ordem de Serviço | número da OS; sintoma relatado; áudio do mecânico; transcrição; diagnóstico; etapa atual; data de entrada; mecânico responsável |
+| Item de peça | descrição da peça; quantidade; categoria da peça |
 | Fornecedor | nome do fornecedor; contato do fornecedor; categoria de peças |
-| Cotação | preço informado; prazo de entrega da peça; data da resposta; fornecedor escolhido |
+| Cotação | preço informado; prazo de entrega da peça; data da resposta; fornecedor escolhido; data e hora do aviso ao fornecedor escolhido |
 | Evento de etapa | etapa; data e hora da etapa; autor da etapa |
 | Aviso | mensagem de aviso; data e hora do aviso |
+| Notificação ao mecânico | mensagem da notificação; data e hora; mecânico; ordem de serviço |
 
 Tipo, obrigatoriedade e validação de cada campo: [A DEFINIR] (P-11).
 
@@ -193,7 +214,7 @@ Tipo, obrigatoriedade e validação de cada campo: [A DEFINIR] (P-11).
 
 **Hipótese:** HIP-11 (Confiança: média)
 
-**Telas.** Tela de gravação com um botão grande. Tela de conferência da lista de peças.
+**Telas.** No app mobile: tela de gravação com um botão grande e tela de conferência da lista de peças. Sem conexão, a gravação mostra erro e pede nova tentativa (Origem: decisão de plataforma de 17/11/2026).
 
 **Campos.** placa; modelo; sintoma relatado; áudio do mecânico; transcrição; diagnóstico; descrição da peça; quantidade; data de entrada.
 
@@ -209,11 +230,13 @@ Tipo, obrigatoriedade e validação de cada campo: [A DEFINIR] (P-11).
 
 **Descrição.** Com a lista de peças pronta, o gerente ou o dono pede a cotação. O agente de cotação envia o pedido aos fornecedores cadastrados, recebe preço e prazo, e mostra um comparativo ao dono. O dono escolhe o fornecedor. O sistema não compra a peça.
 
+**Atualização (Origem: 2.61E (protótipo exploratório)).** O agente de cotação sugere os fornecedores pela categoria da peça (a categoria do RF-05), e o gerente ou o dono ajusta a seleção antes de enviar. Depois da escolha, o agente avisa o fornecedor escolhido por WhatsApp. O aviso não é compra nem pagamento.
+
 **Hipótese:** HIP-01 (Confiança: média)
 
 **Telas.** Tela de pedido de cotação. Tela de comparativo de respostas, com preço e prazo.
 
-**Campos.** descrição da peça; quantidade; nome do fornecedor; preço informado; prazo de entrega da peça; data da resposta; fornecedor escolhido.
+**Campos.** descrição da peça; quantidade; categoria da peça; nome do fornecedor; categoria de peças; preço informado; prazo de entrega da peça; data da resposta; fornecedor escolhido; data e hora do aviso ao fornecedor escolhido.
 
 **Regras.** RN-01, RN-02, RN-05.
 
@@ -229,13 +252,17 @@ Canal (`NOTA-R`): os fornecedores respondem hoje por WhatsApp. Quando demoram, o
 
 **Descrição.** Cada ordem de serviço tem uma etapa atual. O mecânico, o gerente, o dono ou a recepção mudam a etapa. Todos os perfis internos veem o painel. As etapas propostas são diagnóstico, aguardando peça, aprovação do cliente, execução e pronto (Sugestão, a partir dos elos listados em `NOTA`).
 
+**Atualização (Origem: 2.61E (protótipo exploratório)).** Só o dono e o gerente cancelam um serviço. O cancelamento sai do painel e pede confirmação (RN-07). A aprovação do cliente é registrada pelo atendente, que muda a etapa para execução depois que o cliente confirma (RN-03).
+
+**Atualização (Origem: 2.61E (protótipo exploratório, rodada 2)).** Cada ordem tem um mecânico responsável. O mecânico vê no app só as ordens atribuídas a ele. Quem atribui a ordem, e em que momento, está em aberto (P-29).
+
 **Hipótese:** HIP-04 (Confiança: média)
 
-**Telas.** Painel com os carros por etapa. Tela de mudança de etapa.
+**Telas.** No painel web: quadro com os carros por etapa e tela de mudança de etapa. No app mobile: lista das ordens de serviço atribuídas ao mecânico e tela de mudança de etapa em tela cheia (Sugestão, Origem: decisão de plataforma de 17/11/2026).
 
-**Campos.** número da OS; placa; etapa atual; etapa; data e hora da etapa; autor da etapa.
+**Campos.** número da OS; placa; etapa atual; etapa; data e hora da etapa; autor da etapa; mecânico responsável.
 
-**Regras.** RN-03, RN-06.
+**Regras.** RN-03, RN-06, RN-07.
 
 **Critérios de aceite.** [A DEFINIR] (P-12).
 
@@ -247,7 +274,7 @@ Canal (`NOTA-R`): os fornecedores respondem hoje por WhatsApp. Quando demoram, o
 
 **Hipótese:** HIP-04 (Confiança: média)
 
-**Telas.** Sem tela para o cliente nesta fase. A mensagem sai por WhatsApp (Premissa). O dono e a recepção veem o histórico de avisos no painel.
+**Telas.** Sem tela para o cliente nesta fase. A mensagem sai por WhatsApp (Premissa). O dono, o gerente e a recepção veem o histórico de avisos no painel (Origem: 2.61E (protótipo exploratório)).
 
 **Campos.** nome do cliente; telefone do cliente; etapa atual; mensagem de aviso; data e hora do aviso.
 
@@ -275,6 +302,42 @@ Um cliente final (`E3`) usa WhatsApp e já recebe o aviso de "pronto" do mecâni
 
 **Critérios de aceite.** [A DEFINIR] (P-12).
 
+### RF-06
+
+**Abertura da ordem de serviço**
+
+**Descrição.** Quando o cliente deixa o carro, a recepção abre a ordem de serviço com o nome e o telefone do cliente, a placa, o modelo e o sintoma relatado. A ordem entra no painel na etapa diagnóstico (RF-03). Decisão da pessoa em 17/11/2026, depois do protótipo exploratório. Entra na primeira release.
+
+**Origem:** 2.61E (protótipo exploratório). Fecha a P-17.
+
+**Telas.** Formulário de abertura da ordem de serviço.
+
+**Campos.** nome do cliente; telefone do cliente; placa; modelo; sintoma relatado; número da OS; data de entrada.
+
+**Regras.** RN-06 (a abertura não gera aviso: o aviso sai quando a etapa muda).
+
+**Critérios de aceite.** [A DEFINIR] (P-12).
+
+📌 Nota crítica: não sabemos se o cliente que já está cadastrado é reaproveitado ou digitado de novo. (P-12)
+
+### RF-07
+
+**Notificação push ao mecânico**
+
+**Descrição.** O app do mecânico recebe uma notificação push no celular quando uma ordem de serviço é atribuída a ele e quando a cotação das peças da ordem dele é respondida. A notificação abre a ordem no app. Decisão da pessoa em 17/11/2026, depois do protótipo exploratório. Entra na primeira release.
+
+**Origem:** 2.61E (protótipo exploratório, rodada 2). Fecha a P-25.
+
+**Telas.** Notificação do celular e aviso da ordem atribuída no topo da lista de ordens do app.
+
+**Campos.** mensagem da notificação; data e hora; mecânico; ordem de serviço.
+
+**Regras.** RN-04 (a notificação não pede nenhuma digitação do mecânico).
+
+**Critérios de aceite.** [A DEFINIR] (P-12).
+
+📌 Nota crítica: os outros eventos que geram notificação, além da ordem atribuída e da cotação respondida, não foram definidos. (P-30)
+
 ---
 
 ## 6. Regras de Negócio
@@ -283,10 +346,11 @@ Um cliente final (`E3`) usa WhatsApp e já recebe o aviso de "pronto" do mecâni
 |---|---|---|
 | RN-01 | O mecânico não decide a pesquisa de preço de peças. Ela fica com o gerencial. | Confirmado |
 | RN-02 | O dono decide qual fornecedor usar. Na Oficina B, o gerente pesquisa o preço e o dono decide. | Confirmado (com ressalva: confirmado só na Oficina B). Ver P-10. |
-| RN-03 | O cliente aprova o serviço antes da execução. | Pendente (P-06) |
+| RN-03 | O cliente aprova o serviço antes da execução. O atendente registra a aprovação: muda a etapa para execução depois que o cliente confirma por telefone ou mensagem (Origem: 2.61E (protótipo exploratório)). | Pendente (P-06). O registro está decidido; falta a regra de orçamento e aprovação. |
 | RN-04 | A ferramenta do mecânico não pode exigir digitação nem muito detalhe. Entrada por áudio é condição de uso. | Confirmado (com ressalva: vem de uma entrevista, com mecânico da Oficina B) |
-| RN-05 | O sistema não compra peça sem a decisão do dono (Sugestão). | Pendente (P-05) |
+| RN-05 | O sistema não compra peça sem a decisão do dono. Depois da escolha, o agente só avisa o fornecedor escolhido, sem compra nem pagamento (Origem: 2.61E (protótipo exploratório)). | Confirmado (decisão da pessoa em 17/11/2026) |
 | RN-06 | O aviso ao cliente sai quando a etapa muda, e só então (Sugestão). | Pendente (P-07) |
+| RN-07 | Só o dono e o gerente cancelam um serviço, com confirmação (Origem: 2.61E (protótipo exploratório)). | Confirmado (decisão da pessoa em 17/11/2026) |
 
 📌 Nota crítica: regras de orçamento, aprovação, prazo e garantia não foram mencionadas nas fontes. (P-06)
 
@@ -296,14 +360,14 @@ Um cliente final (`E3`) usa WhatsApp e já recebe o aviso de "pronto" do mecâni
 
 ### 7.1 Fluxo principal
 
-Etapas inferidas das fontes (Sugestão). A pergunta de ator e gatilho de cada etapa ficou em branco no brief. (P-17) As fontes só dizem que o diagnóstico mudou com o tamanho da equipe, e não comparam oficinas de outro porte. (P-13)
+Etapas inferidas das fontes (Sugestão). A pergunta de ator e gatilho de cada etapa ficou em branco no brief. As fontes só dizem que o diagnóstico mudou com o tamanho da equipe, e não comparam oficinas de outro porte. (P-13)
 
-1. O cliente deixa o carro. A recepção abre a ordem de serviço. (P-17)
+1. O cliente deixa o carro. A recepção abre a ordem de serviço (RF-06), e a ordem vai para um mecânico responsável (RF-03, P-29). O mecânico recebe uma notificação no celular (RF-07).
 2. O mecânico faz o test drive e define o diagnóstico. Leva de 1 a 2 horas quando há vaga.
 3. O mecânico grava o áudio com o diagnóstico e as peças (RF-01).
-4. O gerente ou o dono pede a cotação (RF-02). O serviço passa para "aguardando peça" (RF-03).
-5. O agente de cotação recebe as respostas. O dono escolhe o fornecedor.
-6. O cliente aprova o serviço (RN-03, P-06).
+4. O gerente ou o dono pede a cotação (RF-02), com os fornecedores sugeridos pela categoria da peça e ajustados por eles. O serviço passa para "aguardando peça" (RF-03).
+5. O agente de cotação recebe as respostas. O dono escolhe o fornecedor, e o agente avisa o fornecedor escolhido por WhatsApp. Quando as respostas da cotação chegam, o mecânico responsável recebe uma notificação no celular (RF-07).
+6. O cliente aprova o serviço, e o atendente registra a aprovação mudando a etapa (RN-03, P-06).
 7. A peça chega. O mecânico executa o serviço. A etapa passa para "execução" e depois para "pronto".
 8. A cada mudança de etapa, o cliente recebe um aviso (RF-04).
 
@@ -315,7 +379,7 @@ Categorias assumidas: dado inválido ou incompleto, falha de sistema ou serviço
 |---|---|---|
 | Dado inválido ou incompleto | O áudio fica ininteligível ou a transcrição erra a peça. | O mecânico corrige a lista na tela de conferência antes de enviar. |
 | Falha de serviço externo | O fornecedor demora a responder à cotação. | Hoje a oficina liga (`NOTA-R`). O agente avisa o gerente, e o pedido pode ir a outro fornecedor. Prazo de espera [A DEFINIR] (P-12). |
-| Desistência ou cancelamento | O cliente não aprova o serviço ou retira o carro. | O serviço sai do painel como cancelado. Regra de cobrança [A DEFINIR] (P-06). |
+| Desistência ou cancelamento | O cliente não aprova o serviço ou retira o carro. | Só o dono e o gerente cancelam, com confirmação (RN-07). O serviço sai do painel como cancelado. Regra de cobrança [A DEFINIR] (P-06). |
 | Exceção de regra ou permissão | O gerente tenta escolher o fornecedor. | O sistema bloqueia e pede a decisão do dono (RN-02). |
 
 ---
@@ -332,9 +396,9 @@ Categorias assumidas: dado inválido ou incompleto, falha de sistema ou serviço
 
 ### 8.1 Constraints de plataforma e idioma
 
-- Plataforma: celular e computador (informação do Roberto).
+- Plataforma: app mobile em Expo para o mecânico e painel web no computador para dono, gerente e recepção. Informação do Roberto: celular e computador. Divisão decidida pela pessoa em 17/11/2026.
 - Interface do mecânico: por voz, sem digitação longa (`E2`, `NOTA`).
-- Uso sem internet: [A DEFINIR] (P-14).
+- Uso sem internet: não. O app e o painel funcionam sempre com internet (decisão da pessoa em 17/11/2026, fecha esta parte da P-14).
 - Idioma: [A DEFINIR] (P-14).
 
 ---
@@ -347,8 +411,10 @@ Categorias assumidas: dado inválido ou incompleto, falha de sistema ou serviço
 | Sistemas (ERPs) dos fornecedores | Preço e catálogo de peças | Não faremos nesta fase. O mercado tem mais de 15 players, sem líder, e APIs públicas são raras (`NOTA`). |
 | Sistema da Oficina B | Gestão interna da oficina | Não integra. É um CRUD sem internet. Nome [A DEFINIR] (P-15). |
 | Serviço de transcrição de voz | Transforma áudio em texto (RF-01) | Sugestão. Escolha técnica [A DEFINIR] (P-09). |
+| Microfone do celular | Grava o áudio do mecânico no app (RF-01) | O app pede a permissão de microfone. Teste com o barulho da oficina em aberto (P-08). |
+| Notificação push no celular | Avisar o mecânico de ordem atribuída e de cotação respondida (RF-07) | Decidido pela pessoa em 17/11/2026. O serviço de push ainda não foi escolhido (P-09). |
 
-📌 Nota crítica: o decisor técnico (stack, plataforma, integrações) não foi identificado. (P-09)
+📌 Nota crítica: a stack do front foi decidida pela pessoa em 17/11/2026 (Expo no app, aplicação web no painel). O decisor do restante (agentes, transcrição, integrações) não foi identificado. (P-09)
 
 Restrição conhecida: a concorrente Pitz tem tese de "sistema operacional para oficinas" e entra no mercado brasileiro com capital internacional (`NOTA`). A Pitz nasceu no México (confirmado pelo Roberto em 30/10/2026). O Parcial 01 diz "colombiana", e essa informação deve ser corrigida. Segundo a imprensa, a Pitz opera na Grande São Paulo desde outubro de 2025 e tem assistente de voz, orçamento por WhatsApp e marketplace de peças com comissão. Essas funções são alegações da empresa.
 
@@ -358,7 +424,10 @@ Restrição conhecida: a concorrente Pitz tem tese de "sistema operacional para 
 
 | Requisito | Valor | Origem |
 |---|---|---|
-| Praticidade de uso | Entrada por áudio, sem digitação longa | `E2`, `NOTA` |
+| Praticidade de uso | Entrada por áudio, sem digitação longa. No celular, toque com alvos de pelo menos 44 pontos | `E2`, `NOTA` |
+| Conexão | Sempre com internet. Sem conexão, o app mostra erro com saída e permite tentar de novo | Decisão da pessoa, 17/11/2026 |
+| Permissões do aparelho | O app pede o microfone e explica para que serve | Sugestão |
+| Envio do áudio | Tamanho máximo e tempo de envio do áudio [A DEFINIR] | P-26 |
 | Performance | [A DEFINIR] | P-12 |
 | Disponibilidade (SLA) | [A DEFINIR] | P-12 |
 | Capacidade e volume | [A DEFINIR] | P-12 |
@@ -413,25 +482,42 @@ Não aplicável — domínio opera em contexto único.
 | P-02 | A oficina registra a data de entrada e de entrega dos carros e quem mede esses números? (sim/não) | §1 | Aberta |
 | P-03 | A recepção pode testar 5 perguntas fixas ao cliente na entrada do carro, em 10 serviços? (sim/não) | §2, HIP-07 | Aberta |
 | P-04 | Os fornecedores respondem pedido de preço por WhatsApp, por ligação ou por e-mail? (WhatsApp, ligação, e-mail) | §9, RF-02, §8 | Fechada: WhatsApp, e a oficina liga quando demoram. |
-| P-05 | O agente deve pedir preço a todos os fornecedores cadastrados, ou só aos da categoria da peça? (todos, só da categoria) | RF-02, RN-05 | Aberta |
-| P-06 | O cliente aprova o orçamento antes de a peça ser comprada? (sim/não) | RN-03, §7, §6 | Aberta |
+| P-05 | O agente deve pedir preço a todos os fornecedores cadastrados, ou só aos da categoria da peça? (todos, só da categoria) | RF-02, RN-05 | Fechada em 17/11/2026: só os da categoria da peça, e o gerente ou o dono ajusta (2.61E). |
+| P-06 | O cliente aprova o orçamento antes de a peça ser comprada? (sim/não) | RN-03, §7, §6 | Aberta (parcial: o atendente registra a aprovação mudando a etapa, decidido em 17/11/2026) |
 | P-07 | O cliente final aceita receber aviso de etapa por WhatsApp? (sim/não) | RF-04, RN-06, §8 | Aberta (parcial: um cliente usa WhatsApp e diz que atende bem) |
-| P-08 | O mecânico tem celular com internet e microfone na oficina, e o áudio funciona com o barulho do serviço? (sim/não) | RF-01, §8, §11 | Aberta |
+| P-08 | O mecânico tem celular com internet e microfone na oficina, e o áudio funciona com o barulho do serviço? (sim/não) | RF-01, §8, §11 | Aberta (parcial: o app Expo e a internet constante foram decididos em 17/11/2026; falta o teste com o barulho) |
 | P-09 | Quem define a tecnologia do sistema: o grupo da FIAP ou outra pessoa? (grupo da FIAP, outra pessoa) | §9 | Aberta |
 | P-10 | O gerente e o dono devem ter telas separadas, com o dono sozinho decidindo o fornecedor? (sim/não) | §3, RN-02 | Aberta |
 | P-11 | O grupo guarda áudios e telefones de clientes por tempo definido, com consentimento do cliente? (sim/não) | §4, §10, §11 | Aberta |
 | P-12 | O grupo define metas de tempo de resposta, disponibilidade e volume, e o critério de aceite de cada função? (sim/não) | §5, §7.2, §10 | Aberta |
 | P-13 | O processo muda entre oficinas de porte diferente, como as de equipe maior? (sim/não) | §7 | Aberta |
-| P-14 | A primeira versão precisa funcionar sem internet, e só em português do Brasil? (sim/não) | §8.1 | Aberta |
+| P-14 | A primeira versão precisa funcionar sem internet, e só em português do Brasil? (sim/não) | §8.1 | Aberta (parcial: sem internet fechado em 17/11/2026, não precisa funcionar offline; falta o idioma) |
 | P-15 | O nome e o fornecedor do sistema da Oficina B são conhecidos? (sim/não) | §9 | Aberta |
 | P-16 | O grupo confirma a lista de itens fora do escopo e que não há outras funções do produto que toquem esse domínio? (sim/não) | §2 | Aberta |
-| P-17 | A recepção abre a ordem de serviço quando o carro chega? (sim/não) | §7.1 | Aberta |
+| P-17 | A recepção abre a ordem de serviço quando o carro chega? (sim/não) | §7.1, RF-06 | Fechada em 17/11/2026: sim, e entra na primeira release (2.61E). |
 | P-18 | O grupo define a meta de redução do tempo parado esperando peças e das cobranças de status? (sim/não) | §1 | Aberta |
 | P-20 | Os donos consultados nunca ouviram falar da Pitz. Quantos donos foram ouvidos? | §2, §9, §11 | Aberta (parcial: ninguém conhecia a Pitz, e o país de origem é o México) |
 | P-21 | Os fornecedores atuais de uma oficina responderiam um pedido de preço por mensagem? | §2, §11, HIP-01 | Fechada: respondem por WhatsApp, e a oficina liga quando demoram. |
 | P-22 | O dono prefere pagar assinatura fixa ou pagar por venda de peça? | §2, §11 | Fechada: assinatura fixa (impressão, número de donos não informado). |
 | P-23 | O grupo testa um valor mensal de assinatura com 2 ou 3 donos? (sim/não) | §2, §11 | Aberta |
 | P-24 | Mais de um cliente final pede registro do serviço com fotos e lembretes de revisão, e clientes de serviço longo cobram o status? (sim/não) | §1, §2, RF-04, §11, HIP-14 | Aberta |
-| P-19 | A arquitetura alvo e a lente da primeira release serão geradas depois, com a skill e o template disponíveis? (sim/não) | §2 | Aberta |
+| P-25 | O mecânico recebe notificação push no celular, por exemplo, quando uma cotação é respondida? (sim/não) | §9, RF-02 | Fechada em 17/11/2026: sim, entra na primeira release (RF-07, 2.61E). |
+| P-26 | Qual o tamanho máximo do áudio e o tempo aceitável de envio pelo celular? | §10, RF-01 | Aberta |
+| P-27 | O design system XPRINTS precisa ser adaptado para o app Expo: quem faz e com quais componentes? | §3 Superfícies, RF-01, RF-03 | Aberta |
+| P-28 | Como o mecânico entra no app (login) e como o app chega ao celular dele (loja ou distribuição interna)? | §3 Superfícies | Aberta |
+| P-29 | Quem atribui a ordem a um mecânico: a recepção, o gerente ou o dono, e em que momento? | RF-03, §3 | Aberta |
+| P-30 | Além da ordem atribuída e da cotação respondida, que outros eventos geram notificação ao mecânico? | RF-07 | Aberta |
+| P-19 | A arquitetura alvo e a lente da primeira release serão geradas depois, com a skill e o template disponíveis? (sim/não) | §2 | Fechada em 17/11/2026: arquitetura alvo e lente da r1-mvp geradas. A arquitetura segue como proposta até a aprovação da Liderança. |
 
 Descobertas ainda sem resposta (🔍 do brief): tempo parado por etapa e taxa de informação inicial errada (P-01, P-02); série histórica de tempo de entrega e de cotação (P-02); reclamações de clientes e teste da triagem (P-03).
+
+---
+
+## Histórico de versões
+
+| Versão | Data | Rodada | O que mudou |
+|---|---|---|---|
+| 0.4 | 30/10/2026 | 1 | Análise da Pitz, respostas do Roberto e cliente final nº 1. |
+| 0.5 | 17/11/2026 | 2.61E (protótipo exploratório) | Incluídos RF-06 (abertura da ordem de serviço), RN-07 (cancelamento) e as linhas "Ver histórico de avisos", "Abrir ordem de serviço" e "Cancelar serviço" na matriz da §3. Alterados RF-02 (fornecedores por categoria e aviso ao fornecedor escolhido), RF-03 (cancelamento), RF-04 (gerente vê o histórico), RN-03 (atendente registra a aprovação) e RN-05 (confirmada). Fechadas P-05 e P-17. Aval: a pessoa, em 17/11/2026, na comparação do protótipo. |
+| 0.6 | 17/11/2026 | Decisão de plataforma | Incluída a seção "Superfícies" na §3: app mobile Expo para o mecânico e painel web para os demais, ambos sempre com internet. Alterados RF-01 e RF-03 (telas por superfície), §8.1, §9 (microfone e push) e §10 (conexão, permissões e envio do áudio). P-14 parcialmente fechada. Novas P-25 a P-28. P-19 fechada: arquitetura alvo e lente da r1-mvp geradas. Aval: a pessoa, em 17/11/2026. |
+| 0.7 | 17/11/2026 | 2.61E (protótipo exploratório, rodada 2) | Incluído RF-07 (notificação push ao mecânico). Alterados RF-03 (mecânico responsável e lista só das ordens dele), §3 (linhas "Atribuir ordem a um mecânico" e "Receber notificação push"), §4.2, §7.1 e §9. Fechada P-25. Novas P-29 e P-30. Aval: a pessoa, em 17/11/2026. |
