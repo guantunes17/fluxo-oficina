@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Tela 6, painel de serviços</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&amp;display=swap">
+<style>body{margin:0}</style>
+</helmet>
+<div class="frame">
+<div class="bar"><span class="pill">Protótipo exploratório</span><span class="pill">Dono, Gerente, Recepção</span><span class="pill b">RF-03</span></div>
+<div class="app">
+<h1>Painel de serviços</h1><p class="sub">Carros por etapa. Toque em uma OS para mudar a etapa.</p>
+<div class="cols">
+<div class="col"><h3>Diagnóstico <span class="pill">1</span></h3><div class="os"><b>OS 1040</b><br><span class="muted">Onix 1.0 · QWE4R56</span></div></div>
+<div class="col"><h3>Aguardando peça <span class="pill">2</span></h3><div class="os"><b>OS 1041</b><br><span class="muted">HB20 1.6 · RTY7U89</span></div><div class="os"><b>OS 1042</b><br><span class="muted">Gol 1.0 · ABC1D23</span></div></div>
+<div class="col"><h3>Aprovação do cliente <span class="pill">1</span></h3><div class="os"><b>OS 1043</b><br><span class="muted">Strada 1.4 · FGH2J34</span></div></div>
+<div class="col"><h3>Execução <span class="pill">1</span></h3><div class="os"><b>OS 1044</b><br><span class="muted">Corolla 2.0 · KLM5N67</span></div></div>
+<div class="col"><h3>Pronto <span class="pill">1</span></h3><div class="os"><b>OS 1045</b><br><span class="muted">Uno 1.0 · ZXC8V90</span></div></div>
+</div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":800}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

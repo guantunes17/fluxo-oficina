@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Tela 5, escolher fornecedor</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&amp;display=swap">
+<style>body{margin:0}</style>
+</helmet>
+<div class="frame">
+<div class="bar"><span class="pill">Protótipo exploratório</span><span class="pill">Dono</span><span class="pill b">RF-02</span><span class="pill b">RN-02</span><span class="pill b">RN-05</span></div>
+<div class="app">
+<h1>Escolher fornecedor</h1><p class="sub">OS 1042. Preço e prazo das respostas recebidas.</p>
+<div class="alert g">Fornecedor escolhido: <b>Distribuidora Norte Peças</b>. O agente avisou o fornecedor por WhatsApp. O sistema não faz a compra nem o pagamento.</div>
+<div class="card">
+<div class="row" style="padding:8px 0"><span class="rad"></span><span><b>Auto Peças Horizonte</b> · R$ 612,00 · prazo 2 dias</span></div>
+<div class="row" style="padding:8px 0"><span class="rad on"></span><span><b>Distribuidora Norte Peças</b> · R$ 574,00 · prazo 4 dias</span></div>
+<div class="row" style="margin-top:12px"><div class="btn">Confirmar fornecedor</div></div>
+</div>
+<div class="alert r"><b>Visão do gerente:</b> só o dono escolhe o fornecedor. O gerente vê as respostas, com a escolha bloqueada e o botão desabilitado. Peça a decisão ao dono.</div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":800}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>App, conferir lista de peças</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&amp;display=swap">
+<style>body{margin:0}</style>
+</helmet>
+<div class="phone">
+<div class="bar"><span class="pill o">App mobile</span><span class="pill">Mecânico</span><span class="pill b">RF-01</span><span class="pill b">§7.2</span></div>
+<div class="mapp">
+<h1>Conferir lista de peças</h1><p class="sub">OS 1042 · Gol 1.0 · entrada em 17/11/2026. Corrija o que errou e envie ao gerente.</p>
+<div class="pcard"><b>Pastilha de freio dianteira</b>
+  <div class="row" style="margin:8px 0"><div class="btn out">−</div><b>1</b><div class="btn out">+</div></div>
+  <div class="row"><div class="btn out">Regravar por voz</div><div class="btn out">Remover</div></div></div>
+<div class="pcard"><b>Disco de freio dianteiro</b>
+  <div class="row" style="margin:8px 0"><div class="btn out">−</div><b>2</b><div class="btn out">+</div></div>
+  <div class="row"><div class="btn out">Regravar por voz</div><div class="btn out">Remover</div></div></div>
+<div class="pcard"><b>Fluido de freio DOT 4</b>
+  <div class="row" style="margin:8px 0"><div class="btn out">−</div><b>1</b><div class="btn out">+</div></div>
+  <div class="row"><div class="btn out">Regravar por voz</div><div class="btn out">Remover</div></div></div>
+<div class="btn out">Adicionar peça por voz</div>
+<div class="btn" style="margin-top:8px">Enviar lista ao gerente</div>
+</div>
+<div class="mtab"><div class="btn">Gravar</div><div class="btn out">Minhas OS</div></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

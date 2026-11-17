@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Tela 11, abrir ordem de serviço</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&amp;display=swap">
+<style>body{margin:0}</style>
+</helmet>
+<div class="frame">
+<div class="bar"><span class="pill">Protótipo exploratório</span><span class="pill">Recepção</span><span class="pill b">RF-06</span><span class="pill b">RF-03</span><span class="pill b">§7.1</span></div>
+<div class="app">
+<h1>Abrir ordem de serviço</h1><p class="sub">Registre o carro que o cliente acabou de deixar. A OS entra no painel em Diagnóstico, e o mecânico responsável recebe uma notificação no celular.</p>
+<div class="card"><div class="grid">
+  <div><span class="l">Nome do cliente</span><div class="in ph">Ex.: Ana Ribeiro</div></div>
+  <div><span class="l">Telefone do cliente</span><div class="in ph">(11) 90000-0000</div></div>
+  <div><span class="l">Placa</span><div class="in ph">ABC1D23</div></div>
+  <div><span class="l">Modelo</span><div class="in ph">Ex.: Gol 1.0</div></div>
+  <div><span class="l">Sintoma relatado</span><div class="in ph">Ex.: Barulho ao frear</div></div>
+  <div><span class="l">Mecânico responsável</span><div class="in">Carlos</div></div>
+</div>
+<div class="row" style="margin-top:16px"><div class="btn">Abrir ordem de serviço</div></div></div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":800}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

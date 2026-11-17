@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Tela 9, fornecedores</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&amp;display=swap">
+<style>body{margin:0}</style>
+</helmet>
+<div class="frame">
+<div class="bar"><span class="pill">Protótipo exploratório</span><span class="pill">Dono, Gerente</span><span class="pill b">RF-05</span></div>
+<div class="app">
+<h1>Fornecedores</h1><p class="sub">Quem recebe os pedidos de cotação.</p>
+<div class="card"><table><thead><tr><th>Nome</th><th>Contato</th><th>Categorias de peças</th></tr></thead><tbody>
+<tr><td><b>Auto Peças Horizonte</b></td><td>(11) 90000-0101</td><td>Freios, suspensão</td></tr>
+<tr><td><b>Distribuidora Norte Peças</b></td><td>(11) 90000-0102</td><td>Freios, motor</td></tr>
+<tr><td><b>Casa do Freio</b></td><td>(11) 90000-0103</td><td>Freios</td></tr>
+<tr><td><b>Elétrica Central</b></td><td>(11) 90000-0104</td><td>Elétrica</td></tr>
+</tbody></table>
+<div style="margin-top:12px"><div class="btn">Cadastrar fornecedor</div></div></div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":800}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

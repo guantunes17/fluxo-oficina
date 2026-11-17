@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>App, mudar etapa no celular</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&amp;display=swap">
+<style>body{margin:0}</style>
+</helmet>
+<div class="phone">
+<div class="bar"><span class="pill o">App mobile</span><span class="pill">Mecânico</span><span class="pill b">RF-03</span><span class="pill b">RN-03</span></div>
+<div class="mapp">
+<h1>OS 1042</h1><p class="sub">Gol 1.0 · ABC1D23 · etapa atual: <b>Aguardando peça</b></p>
+<span class="l">Nova etapa</span>
+<div class="opt">Diagnóstico</div>
+<div class="opt">Aguardando peça</div>
+<div class="opt">Aprovação do cliente</div>
+<div class="opt sel">Execução</div>
+<div class="opt">Pronto</div>
+<div class="alert o">O cliente precisa aprovar antes da execução. Mude para Execução só depois que ele confirmar por telefone ou mensagem.</div>
+<div class="btn">Salvar etapa</div>
+<div class="btn out" style="margin-top:8px">Voltar às minhas ordens</div>
+</div>
+<div class="mtab"><div class="btn out">Gravar</div><div class="btn">Minhas OS</div></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

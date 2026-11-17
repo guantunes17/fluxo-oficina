@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Tela 8, histórico de avisos</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&amp;display=swap">
+<style>body{margin:0}</style>
+</helmet>
+<div class="frame">
+<div class="bar"><span class="pill">Protótipo exploratório</span><span class="pill">Dono, Gerente, Recepção</span><span class="pill b">RF-04</span><span class="pill b">RN-06</span></div>
+<div class="app">
+<h1>Histórico de avisos</h1><p class="sub">Mensagens que o agente de aviso enviou aos clientes. O cliente final não tem tela nesta fase.</p>
+<div class="card"><table><thead><tr><th>Data e hora</th><th>Cliente</th><th>Etapa</th><th>Mensagem</th></tr></thead><tbody>
+<tr><td>17/11 14:05</td><td>Marcos Teixeira<br><span class="muted">(11) 90000-0001</span></td><td><span class="pill b">Aguardando peça</span></td><td>Seu Gol (placa ABC1D23) está aguardando a chegada de uma peça.</td></tr>
+<tr><td>17/11 10:20</td><td>Paula Nogueira<br><span class="muted">(11) 90000-0002</span></td><td><span class="pill b">Execução</span></td><td>O serviço no seu Corolla começou.</td></tr>
+<tr><td>16/11 17:40</td><td>Rafael Gomes<br><span class="muted">(11) 90000-0003</span></td><td><span class="pill b">Pronto</span></td><td>Seu Uno está pronto para retirada.</td></tr>
+</tbody></table></div>
+<div class="alert o">Não sabemos se o cliente de um serviço longo quer aviso a cada etapa. Só um cliente foi ouvido.</div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":800}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

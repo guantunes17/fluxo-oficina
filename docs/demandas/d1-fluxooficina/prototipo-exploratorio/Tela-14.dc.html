@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>App, gravação sem conexão</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&amp;display=swap">
+<style>body{margin:0}</style>
+</helmet>
+<div class="phone">
+<div class="bar"><span class="pill o">App mobile</span><span class="pill">Mecânico</span><span class="pill b">RF-01</span><span class="pill b">§10</span></div>
+<div class="mapp">
+<h1>Gravar diagnóstico</h1><p class="sub">Estado sem conexão. O app exige internet e não grava para enviar depois.</p>
+<div class="card" style="text-align:center">
+  <p class="muted">OS 1042 · Gol 1.0 · ABC1D23</p>
+  <div class="btn rec">Gravar de novo</div>
+  <p class="muted" style="margin-top:12px">Áudio gravado, 00:21.</p>
+  <div class="alert r" style="text-align:left;margin-top:12px"><b>Sem conexão.</b> O áudio não foi enviado. Conecte o celular à internet e tente de novo.<div style="margin-top:12px"><div class="btn">Tentar de novo</div></div></div>
+</div>
+</div>
+<div class="mtab"><div class="btn">Gravar</div><div class="btn out">Minhas OS</div></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

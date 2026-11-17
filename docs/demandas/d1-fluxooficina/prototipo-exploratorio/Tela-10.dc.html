@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Tela 10, cadastrar fornecedor</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&amp;display=swap">
+<style>body{margin:0}</style>
+</helmet>
+<div class="frame">
+<div class="bar"><span class="pill">Protótipo exploratório</span><span class="pill">Dono, Gerente</span><span class="pill b">RF-05</span></div>
+<div class="app">
+<h1>Cadastrar fornecedor</h1><p class="sub">O fornecedor recebe os pedidos por WhatsApp.</p>
+<div class="card"><div class="grid">
+  <div><span class="l">Nome do fornecedor</span><div class="in ph">Ex.: Auto Peças Estrela</div></div>
+  <div><span class="l">Contato (WhatsApp)</span><div class="in ph">(11) 90000-0000</div></div>
+  <div><span class="l">Categorias de peças</span><div class="in ph">Ex.: Freios, motor</div></div>
+</div>
+<div class="alert r" style="margin-top:16px">Preencha o nome e o contato para salvar.</div>
+<div class="row" style="margin-top:16px"><div class="btn">Salvar fornecedor</div><div class="btn out">Voltar à lista</div></div></div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":800}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

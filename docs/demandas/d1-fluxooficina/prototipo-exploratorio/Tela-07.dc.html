@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Tela 7, mudar etapa da OS</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&amp;display=swap">
+<style>body{margin:0}</style>
+</helmet>
+<div class="frame">
+<div class="bar"><span class="pill">Protótipo exploratório</span><span class="pill">Dono, Gerente, Recepção</span><span class="pill b">RF-03</span><span class="pill b">RN-03</span><span class="pill b">RN-07</span></div>
+<div class="app">
+<h1>Mudar etapa da OS 1042</h1><p class="sub">Gol 1.0 · placa ABC1D23 · etapa atual: <b>Aguardando peça</b></p>
+<div class="card">
+  <span class="l">Nova etapa</span>
+  <div class="in">Execução</div>
+  <div class="alert o" style="margin-top:12px">O cliente precisa aprovar o serviço antes da execução. Mude para Execução só depois que ele confirmar por telefone ou mensagem.</div>
+  <div class="row" style="margin-top:12px"><div class="btn">Salvar etapa</div><div class="btn out">Cancelar serviço</div><div class="btn out">Voltar ao painel</div></div>
+  <p class="muted" style="margin-top:12px">O aviso ao cliente sai só quando a etapa muda. O botão Cancelar serviço aparece só para o dono e o gerente.</p>
+</div>
+<div class="card" style="max-width:420px"><h2>Cancelar a OS 1042?</h2><p>A OS sai do painel como cancelada. A regra de cobrança ainda não está definida.</p><div class="row"><div class="btn dng">Cancelar OS 1042</div><div class="btn out">Manter OS</div></div></div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":800}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

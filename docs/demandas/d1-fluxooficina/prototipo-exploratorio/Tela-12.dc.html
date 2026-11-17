@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>App, minhas ordens de serviço</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&amp;display=swap">
+<style>body{margin:0}</style>
+</helmet>
+<div class="phone">
+<div class="bar"><span class="pill o">App mobile</span><span class="pill">Mecânico</span><span class="pill b">RF-03</span><span class="pill b">RF-07</span></div>
+<div class="mapp">
+<h1>Minhas ordens de serviço</h1><p class="sub">Só as ordens atribuídas a você. Toque para mudar a etapa.</p>
+<div class="alert o"><b>Notificação push</b><br>Cotação respondida na OS 1042. Toque para abrir.<div class="row" style="margin-top:10px"><div class="btn">Abrir OS 1042</div><div class="btn out">Dispensar</div></div></div>
+<div class="ocard"><b>OS 1040</b> <span class="pill b">Diagnóstico</span><br><span class="muted">Onix 1.0 · QWE4R56</span></div>
+<div class="ocard"><b>OS 1042</b> <span class="pill b">Aguardando peça</span><br><span class="muted">Gol 1.0 · ABC1D23</span></div>
+<div class="ocard"><b>OS 1044</b> <span class="pill b">Execução</span><br><span class="muted">Corolla 2.0 · KLM5N67</span></div>
+</div>
+<div class="mtab"><div class="btn out">Gravar</div><div class="btn">Minhas OS</div></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

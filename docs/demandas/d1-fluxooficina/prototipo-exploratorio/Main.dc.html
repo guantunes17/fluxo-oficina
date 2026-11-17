@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>FluxoOficina, protótipo exploratório</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&amp;display=swap">
+<style>
+:root{--white:#ffffff;--primary:#31160c;--primary-foreground:#fafaf9;--background:#ffffff;--foreground:#31160c;--secondary:#f5f5f4;--muted:#f5f5f4;--muted-foreground:#78716c;--accent:#f5f5f4;--border:#e7e5e4;--input:#e7e5e4;--ring:#d6d3d1;--card:#ffffff;--destructive:#e74c3c;
+--blue-background:#e3effb;--blue-border:#8ac5ef;--blue-foreground:#164064;
+--red-background:#fde5e3;--red-border:#f9b0a8;--red-foreground:#7b2921;
+--green-background:#defaea;--green-border:#8beab3;--green-foreground:#175031;
+--orange-background:#faeacb;--orange-border:#f0b559;--orange-foreground:#712916}
+body{margin:0;background:var(--background);color:var(--foreground);font-family:Poppins,sans-serif;font-size:14px;line-height:1.5}
+.bar{position:sticky;top:0;z-index:40;display:flex;gap:10px;align-items:center;padding:8px 16px;border-bottom:1px solid var(--border);background:var(--background);overflow-x:auto;white-space:nowrap}
+.sel,.in,.ta{box-sizing:border-box;height:36px;padding:0 12px;border:1px solid var(--input);border-radius:8px;background:var(--background);color:var(--foreground);font:inherit}
+.bar .sel{min-width:150px}
+.in{width:100%}
+.selb{width:100%}
+.pill{display:inline-block;padding:2px 10px;border-radius:999px;font-size:12px;font-weight:500;border:1px solid var(--border);background:var(--secondary)}
+.pill.b{background:var(--blue-background);color:var(--blue-foreground);border-color:var(--blue-border)}
+.pill.g{background:var(--green-background);color:var(--green-foreground);border-color:var(--green-border)}
+.pill.o{background:var(--orange-background);color:var(--orange-foreground);border-color:var(--orange-border)}
+.app{max-width:1080px;margin:0 auto;padding:24px 16px 64px}
+.app h1{font-size:20px;font-weight:600;margin:0 0 4px}
+.app h2{font-size:16px;font-weight:600;margin:0 0 8px}
+.sub{color:var(--muted-foreground);margin:0 0 20px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;height:44px;padding:0 16px;border-radius:8px;border:1px solid var(--primary);background:var(--primary);color:var(--primary-foreground);font:inherit;font-weight:500;cursor:pointer}
+.btn.out{background:var(--background);color:var(--foreground);border-color:var(--border)}
+.btn.dng{background:#c0392b;border-color:#c0392b;color:#fff}
+.btn.rec{width:120px;height:120px;padding:0;border-radius:50%;font-size:15px}
+.btn.rec.on{background:#c0392b;border-color:#c0392b}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:16px}
+.row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+.l{display:block;font-weight:500;margin-bottom:4px}
+table{width:100%;border-collapse:collapse}
+th{text-align:left;font-weight:500;color:var(--muted-foreground);padding:8px 12px;border-bottom:1px solid var(--border)}
+td{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:middle}
+.tw{overflow-x:auto}
+.alert{border:1px solid var(--border);border-radius:10px;padding:12px 16px;margin-bottom:16px;background:var(--secondary)}
+.alert.r{background:var(--red-background);color:var(--red-foreground);border-color:var(--red-border)}
+.alert.g{background:var(--green-background);color:var(--green-foreground);border-color:var(--green-border)}
+.alert.o{background:var(--orange-background);color:var(--orange-foreground);border-color:var(--orange-border)}
+.muted{color:var(--muted-foreground)}
+.cols{display:grid;grid-template-columns:repeat(5,minmax(170px,1fr));gap:12px;overflow-x:auto}
+.col{background:var(--muted);border-radius:12px;padding:10px;min-height:160px}
+.col h3{font-size:13px;margin:0 0 8px;font-weight:600}
+.os{display:block;width:100%;text-align:left;background:var(--card);border:1px solid var(--border);border-radius:8px;padding:8px 10px;margin-bottom:8px;cursor:pointer;font:inherit;color:inherit}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;z-index:50}
+.modal .card{max-width:420px;margin:16px}
+
+.app.mobile{max-width:390px;border:1px solid var(--border);border-radius:32px;margin:24px auto;padding:20px 16px 24px;min-height:780px;position:relative;box-shadow:0 8px 30px rgba(49,22,12,.12)}
+.app.mobile .btn{height:52px;width:100%}
+.app.mobile .btn.rec{width:140px;height:140px;margin:0 auto}
+.app.mobile .row .btn{width:auto}
+.tabbar{position:sticky;bottom:0;display:flex;gap:8px;margin:24px -16px -24px;padding:8px 16px;border-top:1px solid var(--border);background:var(--background);border-radius:0 0 32px 32px}
+.tabbar .btn{flex:1;height:52px}
+.opt{display:block;width:100%;text-align:left;min-height:52px;padding:0 16px;margin-bottom:8px;border:1px solid var(--border);border-radius:12px;background:var(--background);color:var(--foreground);font:inherit;cursor:pointer}
+.opt.sel{border-color:var(--primary);background:var(--secondary);font-weight:600}
+.ocard{display:block;width:100%;text-align:left;padding:14px 16px;margin-bottom:10px;border:1px solid var(--border);border-radius:12px;background:var(--card);color:inherit;font:inherit;cursor:pointer}
+.pcard{border:1px solid var(--border);border-radius:12px;padding:12px 14px;margin-bottom:10px}
+</style>
+</helmet>
+<div>
+<div class="bar">
+  <span class="pill" title="Protótipo exploratório do passo 2.61E. Descartável: nasce da EF Macro e volta para ela. Dados fictícios.">Protótipo exploratório</span>
+  <span class="pill o">{{superficie}}</span>
+  <select class="sel" aria-label="Persona" onChange="{{onPersona}}"><sc-for list="{{personas}}" as="p" hint-placeholder-count="4"><option value="{{p.id}}" selected="{{p.sel}}">{{p.nome}}</option></sc-for></select>
+  <select class="sel" aria-label="Tela" onChange="{{onTela}}"><sc-for list="{{telasLista}}" as="t" hint-placeholder-count="4"><option value="{{t.id}}" selected="{{t.sel}}">{{t.nome}}</option></sc-for></select>
+  <sc-for list="{{rfs}}" as="r" hint-placeholder-count="2"><span class="pill b">{{r.id}}</span></sc-for>
+</div>
+<main class="app {{appClass}}">
+
+<sc-if value="{{t1}}" hint-placeholder-val="{{ true }}">
+<h1>Gravar diagnóstico</h1><p class="sub">Fale o sintoma confirmado, o diagnóstico e as peças. Não precisa digitar.</p>
+<div class="card" style="text-align:center">
+  <p class="muted">OS 1042 · Gol 1.0 · placa ABC1D23</p>
+  <button class="btn rec {{recClass}}" onClick="{{gravar}}">{{recLabel}}</button>
+  <p class="muted" style="margin-top:12px">{{recTexto}}</p>
+  <sc-if value="{{erroRede}}" hint-placeholder-val="{{ false }}"><div class="alert r" style="text-align:left;margin-top:12px"><b>Sem conexão.</b> O áudio não foi enviado. Conecte o celular à internet e tente de novo.<div style="margin-top:12px"><button class="btn" onClick="{{tentarDeNovo}}">Tentar de novo</button></div></div></sc-if>
+  <sc-if value="{{podeConferir}}" hint-placeholder-val="{{ false }}"><button class="btn" onClick="{{irConferir}}">Conferir lista de peças</button></sc-if>
+</div>
+<button class="btn out" onClick="{{alternarRede}}">{{redeLabel}}</button>
+<div class="alert o" style="margin-top:16px">A taxa de acerto da transcrição para nomes de peças ainda não foi testada.</div>
+</sc-if>
+
+<sc-if value="{{t2}}" hint-placeholder-val="{{ false }}">
+<h1>Conferir lista de peças</h1><p class="sub">O agente de voz montou a lista a partir do áudio. Corrija o que estiver errado e envie ao gerente.</p>
+<sc-if value="{{enviado}}" hint-placeholder-val="{{ false }}"><div class="alert g">Lista enviada ao gerente. O pedido de cotação sai do gerente ou do dono.</div></sc-if>
+<div class="card">
+  <span class="l">Transcrição</span>
+  <div class="alert">“Freio dianteiro fazendo barulho, confirmei que as pastilhas e os discos estão gastos. Preciso de pastilha, dois discos e fluido de freio.”</div>
+  <div class="grid" style="margin-bottom:16px">
+    <div><span class="l">Placa</span><div>ABC1D23</div></div>
+    <div><span class="l">Modelo</span><div>Gol 1.0</div></div>
+    <div><span class="l">Sintoma relatado</span><div>Barulho ao frear</div></div>
+    <div><span class="l">Data de entrada</span><div>17/11/2026</div></div>
+  </div>
+  <sc-if value="{{msg}}" hint-placeholder-val="{{ false }}"><div class="alert g">{{msg}}</div></sc-if>
+  <sc-for list="{{pecas}}" as="p" hint-placeholder-count="3"><div class="pcard">
+    <b>{{p.d}}</b>
+    <div class="row" style="margin:10px 0"><button class="btn out" aria-label="Diminuir quantidade" onClick="{{p.menos}}">−</button><b>{{p.q}}</b><button class="btn out" aria-label="Aumentar quantidade" onClick="{{p.mais}}">+</button></div>
+    <div class="row"><button class="btn out" onClick="{{p.voz}}">Regravar peça por voz</button><button class="btn out" onClick="{{p.remover}}">Remover peça</button></div></div></sc-for>
+  <div style="margin-top:12px"><button class="btn out" onClick="{{addPeca}}">Adicionar peça por voz</button></div><div style="margin-top:8px"><button class="btn" disabled="{{semPecas}}" onClick="{{enviarLista}}">Enviar lista ao gerente</button></div>
+</div>
+<div class="alert r"><b>Áudio ininteligível.</b> Se a transcrição vier errada, corrija a peça aqui antes de enviar, ou grave de novo.</div>
+</sc-if>
+
+<sc-if value="{{t3}}" hint-placeholder-val="{{ false }}">
+<h1>Pedir cotação</h1><p class="sub">OS 1042 · Gol 1.0. O agente envia o pedido por WhatsApp aos fornecedores marcados.</p>
+<div class="card"><h2>Peças</h2><table><tbody><sc-for list="{{pecas}}" as="p" hint-placeholder-count="3"><tr><td>{{p.d}}</td><td style="width:90px">× {{p.q}}</td></tr></sc-for></tbody></table></div>
+<div class="card"><h2>Fornecedores a consultar</h2>
+  <p class="muted">O agente marcou os fornecedores que atendem a categoria das peças (freios). Ajuste a seleção se precisar.</p>
+  <sc-for list="{{forns}}" as="f" hint-placeholder-count="3"><label class="row" style="padding:6px 0"><input type="checkbox" checked="{{f.marcado}}" onChange="{{f.alternar}}"> <span><b>{{f.n}}</b> <span class="muted">{{f.cat}}</span></span></label></sc-for>
+  <div class="row" style="margin-top:12px"><button class="btn" onClick="{{enviarPedido}}">Enviar pedido de cotação</button></div>
+</div>
+<div class="alert">O sistema não compra a peça. Quem escolhe o fornecedor é o dono.</div>
+</sc-if>
+
+<sc-if value="{{t4}}" hint-placeholder-val="{{ false }}">
+<h1>Comparar respostas</h1><p class="sub">OS 1042 · pedido enviado hoje às 09:40.</p>
+<div class="card tw"><table><thead><tr><th>Fornecedor</th><th>Preço total</th><th>Prazo da peça</th><th>Resposta</th><th></th></tr></thead><tbody>
+<sc-for list="{{respostas}}" as="f" hint-placeholder-count="3"><tr>
+  <td><b>{{f.n}}</b></td><td>{{f.preco}}</td><td>{{f.prazo}}</td>
+  <td><span class="pill {{f.pillClass}}">{{f.estado}}</span></td>
+  <td><sc-if value="{{f.semResp}}" hint-placeholder-val="{{ false }}"><button class="btn out" onClick="{{reenviar}}">Enviar a outro fornecedor</button></sc-if></td></tr></sc-for>
+</tbody></table></div>
+<div class="alert o">O agente avisou o gerente que a Casa do Freio não respondeu. O prazo de espera antes de cobrar ainda não está definido.</div>
+<sc-if value="{{msg}}" hint-placeholder-val="{{ false }}"><div class="alert g">{{msg}}</div></sc-if>
+<button class="btn" onClick="{{irEscolher}}">Ir para a escolha do fornecedor</button>
+</sc-if>
+
+<sc-if value="{{t5}}" hint-placeholder-val="{{ false }}">
+<h1>Escolher fornecedor</h1><p class="sub">OS 1042. Preço e prazo das respostas recebidas.</p>
+<sc-if value="{{naoPodeEscolher}}" hint-placeholder-val="{{ false }}"><div class="alert r"><b>Só o dono escolhe o fornecedor.</b> Você pode ver as respostas. Peça a decisão ao dono.</div></sc-if>
+<sc-if value="{{confirmado}}" hint-placeholder-val="{{ false }}"><div class="alert g">Fornecedor escolhido: <b>{{escolhidoNome}}</b>. O agente avisou o fornecedor por WhatsApp. O sistema não faz a compra nem o pagamento.</div></sc-if>
+<div class="card">
+  <sc-for list="{{opcoes}}" as="o" hint-placeholder-count="2"><label class="row" style="padding:8px 0"><input type="radio" name="forn" checked="{{o.marcado}}" disabled="{{naoPodeEscolher}}" onChange="{{o.escolher}}"> <span><b>{{o.n}}</b> · {{o.preco}} · prazo {{o.prazo}}</span></label></sc-for>
+  <div class="row" style="margin-top:12px"><button class="btn" disabled="{{semEscolha}}" onClick="{{confirmar}}">Confirmar fornecedor</button><sc-if value="{{naoPodeEscolher}}" hint-placeholder-val="{{ false }}"><span class="muted">Disponível para o dono.</span></sc-if></div>
+</div>
+</sc-if>
+
+<sc-if value="{{t6}}" hint-placeholder-val="{{ false }}">
+<h1>Painel de serviços</h1><p class="sub">Carros por etapa. Toque em uma OS para mudar a etapa.</p>
+<sc-if value="{{msg}}" hint-placeholder-val="{{ false }}"><div class="alert g">{{msg}}</div></sc-if>
+<div class="cols"><sc-for list="{{colunas}}" as="c" hint-placeholder-count="5"><div class="col"><h3>{{c.nome}} <span class="pill">{{c.total}}</span></h3>
+  <sc-for list="{{c.itens}}" as="o" hint-placeholder-count="1"><button class="os" onClick="{{o.abrir}}"><b>OS {{o.n}}</b><br><span class="muted">{{o.m}} · {{o.pl}}</span></button></sc-for></div></sc-for></div>
+</sc-if>
+
+<sc-if value="{{t7}}" hint-placeholder-val="{{ false }}">
+<h1>Mudar etapa da OS {{osAtual.n}}</h1><p class="sub">{{osAtual.m}} · placa {{osAtual.pl}} · etapa atual: <b>{{osAtual.etapa}}</b></p>
+<sc-if value="{{enviado}}" hint-placeholder-val="{{ false }}"><div class="alert g">Etapa salva. O cliente recebe um aviso por WhatsApp com a nova etapa.</div></sc-if>
+<div class="card">
+  <label class="l" for="ne">Nova etapa</label>
+  <select id="ne" class="sel selb" onChange="{{onEtapa}}"><sc-for list="{{etapasOpc}}" as="e" hint-placeholder-count="5"><option value="{{e.i}}" selected="{{e.sel}}">{{e.nome}}</option></sc-for></select>
+  <sc-if value="{{avisoAprovacao}}" hint-placeholder-val="{{ false }}"><div class="alert o" style="margin-top:12px">O cliente precisa aprovar o serviço antes da execução. Mude para Execução só depois que ele confirmar por telefone ou mensagem.</div></sc-if>
+  <div class="row" style="margin-top:12px"><button class="btn" onClick="{{salvarEtapa}}">Salvar etapa</button><sc-if value="{{podeCancelar}}" hint-placeholder-val="{{ true }}"><button class="btn out" onClick="{{pedirCancelar}}">Cancelar serviço</button></sc-if><button class="btn out" onClick="{{irPainel}}">Voltar ao painel</button></div>
+  <p class="muted" style="margin-top:12px">O aviso ao cliente sai só quando a etapa muda. Autor da mudança: {{personaNome}}.</p>
+</div>
+<sc-if value="{{cancelar}}" hint-placeholder-val="{{ false }}"><div class="modal"><div class="card"><h2>Cancelar a OS {{osAtual.n}}?</h2><p>A OS sai do painel como cancelada. A regra de cobrança ainda não está definida.</p><div class="row"><button class="btn dng" onClick="{{confirmarCancelar}}">Cancelar OS {{osAtual.n}}</button><button class="btn out" onClick="{{manter}}">Manter OS</button></div></div></div></sc-if>
+</sc-if>
+
+<sc-if value="{{t8}}" hint-placeholder-val="{{ false }}">
+<h1>Histórico de avisos</h1><p class="sub">Mensagens que o agente de aviso enviou aos clientes. O cliente final não tem tela nesta fase.</p>
+<div class="card tw"><table><thead><tr><th>Data e hora</th><th>Cliente</th><th>Telefone</th><th>Etapa</th><th>Mensagem</th></tr></thead><tbody>
+<sc-for list="{{avisos}}" as="a" hint-placeholder-count="3"><tr><td>{{a.h}}</td><td>{{a.c}}</td><td>{{a.t}}</td><td><span class="pill b">{{a.e}}</span></td><td>{{a.m}}</td></tr></sc-for>
+</tbody></table></div>
+<div class="alert o">Não sabemos se o cliente de um serviço longo quer aviso a cada etapa. Só um cliente foi ouvido.</div>
+</sc-if>
+
+<sc-if value="{{t9}}" hint-placeholder-val="{{ false }}">
+<h1>Fornecedores</h1><p class="sub">Quem recebe os pedidos de cotação.</p>
+<sc-if value="{{novoForn}}" hint-placeholder-val="{{ false }}"><div class="alert g">Fornecedor cadastrado.</div></sc-if>
+<div class="card"><div class="tw"><table><thead><tr><th>Nome</th><th>Contato</th><th>Categorias de peças</th></tr></thead><tbody>
+<sc-for list="{{forns}}" as="f" hint-placeholder-count="3"><tr><td><b>{{f.n}}</b></td><td>{{f.c}}</td><td>{{f.cat}}</td></tr></sc-for>
+</tbody></table></div>
+<div style="margin-top:12px"><button class="btn" onClick="{{irCadastro}}">Cadastrar fornecedor</button></div></div>
+</sc-if>
+
+<sc-if value="{{t10}}" hint-placeholder-val="{{ false }}">
+<h1>Cadastrar fornecedor</h1><p class="sub">O fornecedor recebe os pedidos por WhatsApp.</p>
+<div class="card"><div class="grid">
+  <div><label class="l" for="fn">Nome do fornecedor</label><input id="fn" class="in" placeholder="Ex.: Auto Peças Estrela" value="{{fn}}" onInput="{{onFn}}"></div>
+  <div><label class="l" for="fc">Contato (WhatsApp)</label><input id="fc" class="in" placeholder="(11) 90000-0000" value="{{fc}}" onInput="{{onFc}}"></div>
+  <div><label class="l" for="fk">Categorias de peças</label><input id="fk" class="in" placeholder="Ex.: Freios, motor" value="{{fk}}" onInput="{{onFk}}"></div>
+</div>
+<sc-if value="{{erroForm}}" hint-placeholder-val="{{ false }}"><div class="alert r" style="margin-top:16px">{{erroForm}}</div></sc-if>
+<div class="row" style="margin-top:16px"><button class="btn" onClick="{{salvarForn}}">Salvar fornecedor</button><button class="btn out" onClick="{{irLista}}">Voltar à lista</button></div></div>
+</sc-if>
+
+<sc-if value="{{t11}}" hint-placeholder-val="{{ false }}">
+<h1>Abrir ordem de serviço</h1><p class="sub">Registre o carro que o cliente acabou de deixar. A OS entra no painel em Diagnóstico.</p>
+<div class="card"><div class="grid">
+  <div><label class="l" for="nc">Nome do cliente</label><input id="nc" class="in" placeholder="Ex.: Ana Ribeiro" value="{{nc}}" onInput="{{onNc}}"></div>
+  <div><label class="l" for="nt">Telefone do cliente</label><input id="nt" class="in" placeholder="(11) 90000-0000" value="{{nt}}" onInput="{{onNt}}"></div>
+  <div><label class="l" for="np">Placa</label><input id="np" class="in" placeholder="ABC1D23" value="{{np}}" onInput="{{onNp}}"></div>
+  <div><label class="l" for="nm">Modelo</label><input id="nm" class="in" placeholder="Ex.: Gol 1.0" value="{{nm}}" onInput="{{onNm}}"></div>
+  <div><label class="l" for="ns">Sintoma relatado</label><input id="ns" class="in" placeholder="Ex.: Barulho ao frear" value="{{ns}}" onInput="{{onNs}}"></div>
+  <div><label class="l" for="nmec">Mecânico responsável</label><select id="nmec" class="sel selb" onChange="{{onNmec}}"><sc-for list="{{mecs}}" as="m" hint-placeholder-count="3"><option value="{{m.v}}" selected="{{m.sel}}">{{m.v}}</option></sc-for></select></div>
+</div>
+<sc-if value="{{erroOS}}" hint-placeholder-val="{{ false }}"><div class="alert r" style="margin-top:16px">{{erroOS}}</div></sc-if>
+<div class="row" style="margin-top:16px"><button class="btn" onClick="{{abrirOS}}">Abrir ordem de serviço</button></div></div>
+</sc-if>
+
+<sc-if value="{{t12}}" hint-placeholder-val="{{ false }}">
+<h1>Minhas ordens de serviço</h1><p class="sub">Toque em uma ordem para mudar a etapa.</p>
+<sc-if value="{{msg}}" hint-placeholder-val="{{ false }}"><div class="alert g">{{msg}}</div></sc-if>
+<sc-if value="{{mostrarPush}}" hint-placeholder-val="{{ false }}"><div class="alert o"><b>Notificação push</b><br>Cotação respondida na OS 1042. Toque para abrir.<div class="row" style="margin-top:10px"><button class="btn" onClick="{{abrirPush}}">Abrir OS 1042</button><button class="btn out" onClick="{{fecharPush}}">Dispensar</button></div></div></sc-if>
+<sc-for list="{{minhasOS}}" as="o" hint-placeholder-count="3"><button class="ocard" onClick="{{o.abrir}}"><b>OS {{o.n}}</b> <span class="pill b">{{o.etapa}}</span><br><span class="muted">{{o.m}} · {{o.pl}}</span></button></sc-for>
+</sc-if>
+
+<sc-if value="{{t13}}" hint-placeholder-val="{{ false }}">
+<h1>OS {{osAtual.n}}</h1><p class="sub">{{osAtual.m}} · {{osAtual.pl}} · etapa atual: <b>{{osAtual.etapa}}</b></p>
+<sc-if value="{{enviado}}" hint-placeholder-val="{{ false }}"><div class="alert g">Etapa salva. O cliente recebe um aviso por WhatsApp.</div></sc-if>
+<span class="l">Nova etapa</span>
+<sc-for list="{{etapasBtn}}" as="e" hint-placeholder-count="5"><button class="opt {{e.cls}}" onClick="{{e.pick}}">{{e.nome}}</button></sc-for>
+<sc-if value="{{avisoAprovacao}}" hint-placeholder-val="{{ false }}"><div class="alert o">O cliente precisa aprovar antes da execução. Mude para Execução só depois que ele confirmar por telefone ou mensagem.</div></sc-if>
+<div style="margin-top:12px"><button class="btn" onClick="{{salvarEtapa}}">Salvar etapa</button></div>
+<div style="margin-top:8px"><button class="btn out" onClick="{{irMinhas}}">Voltar às minhas ordens</button></div>
+</sc-if>
+
+<sc-if value="{{isMobile}}" hint-placeholder-val="{{ false }}"><nav class="tabbar" aria-label="Navegação do app"><button class="btn {{tabGravar}}" onClick="{{irGravar}}">Gravar</button><button class="btn {{tabMinhas}}" onClick="{{irMinhas}}">Minhas OS</button></nav></sc-if>
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":900}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = {
+      nmec: 'Carlos', push: true, semRede: false, persona: 'mecanico', tela: 1, gravando: false, gravado: false, enviado: false, msg: '', cancelar: false, novoForn: false, erroForm: '',
+      fn: '', fc: '', fk: '', escolhido: null, nc: '', nt: '', np: '', nm: '', ns: '', erroOS: '', osSel: 1042, etapaNova: null,
+      pecas: [{ d: 'Pastilha de freio dianteira', q: 1 }, { d: 'Disco de freio dianteiro', q: 2 }, { d: 'Fluido de freio DOT 4', q: 1 }],
+      marcados: { 1: true, 2: true, 3: true, 4: false },
+      forns: [
+        { id: 1, n: 'Auto Peças Horizonte', c: '(11) 90000-0101', cat: 'Freios, suspensão' },
+        { id: 2, n: 'Distribuidora Norte Peças', c: '(11) 90000-0102', cat: 'Freios, motor' },
+        { id: 3, n: 'Casa do Freio', c: '(11) 90000-0103', cat: 'Freios' },
+        { id: 4, n: 'Elétrica Central', c: '(11) 90000-0104', cat: 'Elétrica' }
+      ],
+      os: [
+        { n: 1040, pl: 'QWE4R56', m: 'Onix 1.0', e: 0, meu: true }, { n: 1041, pl: 'RTY7U89', m: 'HB20 1.6', e: 1, meu: false },
+        { n: 1042, pl: 'ABC1D23', m: 'Gol 1.0', e: 1, meu: true }, { n: 1043, pl: 'FGH2J34', m: 'Strada 1.4', e: 2, meu: false },
+        { n: 1044, pl: 'KLM5N67', m: 'Corolla 2.0', e: 3, meu: true }, { n: 1045, pl: 'ZXC8V90', m: 'Uno 1.0', e: 4, meu: false }
+      ],
+      avisos: [
+        { h: '17/11 14:05', c: 'Marcos Teixeira', t: '(11) 90000-0001', e: 'Aguardando peça', m: 'Seu Gol (placa ABC1D23) está aguardando a chegada de uma peça.' },
+        { h: '17/11 10:20', c: 'Paula Nogueira', t: '(11) 90000-0002', e: 'Execução', m: 'O serviço no seu Corolla começou.' },
+        { h: '16/11 17:40', c: 'Rafael Gomes', t: '(11) 90000-0003', e: 'Pronto', m: 'Seu Uno está pronto para retirada.' }
+      ]
+    };
+  }
+  renderVals() {
+    const s = this.state;
+    const PERSONAS = { mecanico: ['Mecânico', [1, 2, 12, 13]], gerente: ['Gerente', [3, 4, 5, 6, 7, 8, 9, 10]], dono: ['Dono', [3, 4, 5, 6, 7, 8, 9, 10]], recepcao: ['Recepção', [11, 6, 7, 8]] };
+    const TELAS = { 1: ['Gravar diagnóstico', ['RF-01', 'RN-04']], 2: ['Conferir lista de peças', ['RF-01', '§7.2']], 3: ['Pedir cotação', ['RF-02', 'RN-01']], 4: ['Comparar respostas', ['RF-02', '§7.2']], 5: ['Escolher fornecedor', ['RF-02', 'RN-02', 'RN-05']], 6: ['Painel de serviços', ['RF-03']], 7: ['Mudar etapa da OS', ['RF-03', 'RN-03', '§7.2']], 8: ['Histórico de avisos', ['RF-04', 'RN-06']], 9: ['Fornecedores', ['RF-05']], 10: ['Cadastrar fornecedor', ['RF-05']], 11: ['Abrir ordem de serviço', ['§7.1']], 12: ['Minhas ordens de serviço', ['RF-03']], 13: ['Mudar etapa no celular', ['RF-03', 'RN-03']] };
+    const ETAPAS = ['Diagnóstico', 'Aguardando peça', 'Aprovação do cliente', 'Execução', 'Pronto'];
+    const RESP = { 1: { p: 'R$ 612,00', z: '2 dias' }, 2: { p: 'R$ 574,00', z: '4 dias' }, 3: null };
+    const permitidas = PERSONAS[s.persona][1];
+    const tela = permitidas.includes(s.tela) ? s.tela : permitidas[0];
+    const set = (o) => this.setState(Object.assign({ enviado: false, msg: '' }, o));
+    const ir = (t) => () => set({ tela: t });
+    const os = s.os.find((x) => x.n === s.osSel) || s.os[0];
+    const nova = s.etapaNova === null ? os.e : s.etapaNova;
+    const pode = s.persona === 'dono';
+    const escolhido = s.forns.find((f) => f.id === s.escolhido);
+    const t = {};
+    for (let i = 1; i <= 13; i++) t['t' + i] = tela === i;
+    return Object.assign(t, {
+      personas: Object.keys(PERSONAS).map((k) => ({ id: k, nome: PERSONAS[k][0], sel: k === s.persona })),
+      onPersona: (e) => set({ persona: e.target.value }),
+      telasLista: permitidas.map((i) => ({ id: i, nome: i + '. ' + TELAS[i][0], sel: i === tela })),
+      onTela: (e) => set({ tela: Number(e.target.value) }),
+      rfs: TELAS[tela][1].map((id) => ({ id })),
+      recClass: s.gravando ? 'on' : '',
+      recLabel: s.gravando ? 'Parar gravação' : (s.gravado ? 'Gravar de novo' : 'Gravar áudio'),
+      recTexto: s.gravando ? 'Gravando… 00:14' : (s.gravado ? 'Áudio gravado, 00:21. Transcrição pronta.' : 'Toque no botão e fale.'),
+      gravar: () => this.setState(s.gravando ? { gravando: false, gravado: true } : { gravando: true, gravado: false }),
+      superficie: s.persona === 'mecanico' ? 'App mobile (Expo)' : 'Painel web (computador)',
+      isMobile: s.persona === 'mecanico',
+      appClass: s.persona === 'mecanico' ? 'mobile' : '',
+      erroRede: s.semRede && s.gravado && !s.gravando,
+      alternarRede: () => this.setState({ semRede: !s.semRede }),
+      redeLabel: s.semRede ? 'Restaurar a conexão (simulação)' : 'Simular falta de conexão',
+      tentarDeNovo: () => this.setState({ semRede: false }),
+      irMinhas: ir(12),
+      mostrarPush: s.push,
+      abrirPush: () => set({ osSel: 1042, etapaNova: null, tela: 13, push: false }),
+      fecharPush: () => this.setState({ push: false }),
+      mecs: ['Carlos', 'Diego', 'Eduardo'].map((v) => ({ v, sel: v === s.nmec })),
+      onNmec: (e) => this.setState({ nmec: e.target.value }),
+      irGravar: ir(1),
+      tabGravar: tela === 1 || tela === 2 ? '' : 'out',
+      tabMinhas: tela === 12 || tela === 13 ? '' : 'out',
+      minhasOS: s.os.filter((o) => o.meu && o.e !== 4).map((o) => ({ n: o.n, m: o.m, pl: o.pl, etapa: ETAPAS[o.e], abrir: () => set({ osSel: o.n, etapaNova: null, tela: 13 }) })),
+      etapasBtn: ETAPAS.map((nome, i) => ({ nome, cls: i === nova ? 'sel' : '', pick: () => this.setState({ etapaNova: i }) })),
+      podeConferir: s.gravado && !s.gravando && !s.semRede,
+      irConferir: ir(2),
+      enviado: s.enviado,
+      pecas: s.pecas.map((p, i) => ({
+        d: p.d, q: p.q,
+        mais: () => { const a = s.pecas.slice(); a[i] = Object.assign({}, a[i], { q: Number(a[i].q) + 1 }); this.setState({ pecas: a }); },
+        menos: () => { const a = s.pecas.slice(); a[i] = Object.assign({}, a[i], { q: Math.max(1, Number(a[i].q) - 1) }); this.setState({ pecas: a }); },
+        voz: () => set({ msg: 'Peça regravada por voz: ' + p.d + '. Confira o nome na lista.' }),
+        remover: () => this.setState({ pecas: s.pecas.filter((_, j) => j !== i) })
+      })),
+      addPeca: () => this.setState({ pecas: s.pecas.concat([{ d: 'Filtro de óleo', q: 1 }]), msg: 'Peça adicionada por voz: Filtro de óleo.' }),
+      semPecas: s.pecas.length === 0,
+      enviarLista: () => set({ enviado: true }),
+      forns: s.forns.map((f) => Object.assign({}, f, { marcado: !!s.marcados[f.id], alternar: () => this.setState({ marcados: Object.assign({}, s.marcados, { [f.id]: !s.marcados[f.id] }) }) })),
+      enviarPedido: ir(4),
+      respostas: s.forns.filter((f) => s.marcados[f.id]).map((f) => { const r = RESP[f.id]; return { n: f.n, preco: r ? r.p : 'sem resposta', prazo: r ? r.z : 'sem resposta', estado: r ? 'Respondeu 10:12' : 'Aguardando há 5 h', pillClass: r ? 'g' : 'o', semResp: !r }; }),
+      reenviar: () => this.setState({ msg: 'Pedido reenviado a outro fornecedor.' }),
+      msg: s.msg,
+      irEscolher: ir(5),
+      naoPodeEscolher: !pode,
+      confirmado: s.msg === 'ok',
+      escolhidoNome: escolhido ? escolhido.n : '',
+      opcoes: s.forns.filter((f) => RESP[f.id]).map((f) => ({ n: f.n, preco: RESP[f.id].p, prazo: RESP[f.id].z, marcado: s.escolhido === f.id, escolher: () => this.setState({ escolhido: f.id, msg: '' }) })),
+      semEscolha: !(pode && s.escolhido),
+      confirmar: () => this.setState({ msg: 'ok' }),
+      colunas: ETAPAS.map((nome, e) => { const itens = s.os.filter((o) => o.e === e); return { nome, total: itens.length, itens: itens.map((o) => ({ n: o.n, m: o.m, pl: o.pl, abrir: () => set({ osSel: o.n, etapaNova: null, tela: 7 }) })) }; }),
+      osAtual: { n: os.n, m: os.m, pl: os.pl, etapa: ETAPAS[os.e] },
+      etapasOpc: ETAPAS.map((nome, i) => ({ i, nome, sel: i === nova })),
+      onEtapa: (e) => this.setState({ etapaNova: Number(e.target.value) }),
+      avisoAprovacao: nova === 3 && os.e < 2,
+      salvarEtapa: () => this.setState({ os: s.os.map((o) => o.n === os.n ? Object.assign({}, o, { e: nova }) : o), avisos: [{ h: '17/11 15:00', c: 'Marcos Teixeira', t: '(11) 90000-0001', e: ETAPAS[nova], m: 'Seu ' + os.m + ' agora está na etapa: ' + ETAPAS[nova] + '.' }].concat(s.avisos), enviado: true }),
+      podeCancelar: s.persona === 'dono' || s.persona === 'gerente',
+      pedirCancelar: () => this.setState({ cancelar: true }),
+      irPainel: ir(6),
+      personaNome: PERSONAS[s.persona][0],
+      cancelar: s.cancelar,
+      confirmarCancelar: () => this.setState({ os: s.os.filter((o) => o.n !== os.n), cancelar: false, tela: 6 }),
+      manter: () => this.setState({ cancelar: false }),
+      avisos: s.avisos,
+      novoForn: s.novoForn,
+      irCadastro: () => set({ tela: 10, novoForn: false, erroForm: '' }),
+      fn: s.fn, fc: s.fc, fk: s.fk,
+      onFn: (e) => this.setState({ fn: e.target.value }),
+      onFc: (e) => this.setState({ fc: e.target.value }),
+      onFk: (e) => this.setState({ fk: e.target.value }),
+      erroForm: s.erroForm,
+      salvarForn: () => {
+        if (!s.fn.trim() || !s.fc.trim()) { this.setState({ erroForm: 'Preencha o nome e o contato para salvar.' }); return; }
+        this.setState({ forns: s.forns.concat([{ id: s.forns.length + 1, n: s.fn.trim(), c: s.fc.trim(), cat: s.fk.trim() || 'Sem categoria' }]), fn: '', fc: '', fk: '', erroForm: '', novoForn: true, tela: 9 });
+      },
+      irLista: ir(9),
+      nc: s.nc, nt: s.nt, np: s.np, nm: s.nm, ns: s.ns, erroOS: s.erroOS,
+      onNc: (e) => this.setState({ nc: e.target.value }),
+      onNt: (e) => this.setState({ nt: e.target.value }),
+      onNp: (e) => this.setState({ np: e.target.value }),
+      onNm: (e) => this.setState({ nm: e.target.value }),
+      onNs: (e) => this.setState({ ns: e.target.value }),
+      abrirOS: () => {
+        if (!s.nc.trim() || !s.nt.trim() || !s.np.trim() || !s.nm.trim()) { this.setState({ erroOS: 'Preencha cliente, telefone, placa e modelo para abrir a OS.' }); return; }
+        const n = Math.max.apply(null, s.os.map((o) => o.n).concat([1045])) + 1;
+        this.setState({ os: s.os.concat([{ n, pl: s.np.trim().toUpperCase(), m: s.nm.trim(), e: 0, meu: s.nmec === 'Carlos' }]), nc: '', nt: '', np: '', nm: '', ns: '', erroOS: '', tela: 6, msg: 'OS ' + n + ' aberta e atribuída a ' + s.nmec + '. Ela entrou no painel em Diagnóstico, e ' + s.nmec + ' recebe uma notificação no celular.' });
+      }
+    });
+  }
+}
+</script>
+</body>
+</html>
