@@ -1,0 +1,83 @@
+@startuml FLOW-01-voz-ate-fornecedor
+' ============================================================
+'  FLOW-01 · Como o diagnóstico do mecânico vira a escolha do fornecedor
+'  Convenção: seta cheia = confirmado, inclusive a resposta · seta cinza tracejada = dúvida.
+'  O desenho não leva ID: cada dúvida vira pergunta na legenda, e o resto fica no Fonte.
+'  Fonte: jornada "Do diagnóstico por voz à peça escolhida", fluxo principal. EF Macro v0.7, RF-01, RF-02, RF-07, RN-01, RN-02, RN-05, §7.1 passos 3 a 5 e §7.2 fluxos 1 e 2. Lido em 2026-11-17.
+' ============================================================
+skinparam responseMessageBelowArrow true
+skinparam maxMessageSize 220
+
+title Como o diagnóstico do mecânico vira a escolha do fornecedor
+
+actor "Mecânico" as mec
+participant "App do mecânico" as app
+participant "API" as api
+participant "Agente de voz" as voz
+participant "Serviço de transcrição de voz" as trans
+database "Banco de dados" as banco
+actor "Gerente ou dono" as gdono
+participant "Painel web" as painel
+participant "Agente de cotação" as cot
+participant "WhatsApp" as zap
+participant "Agente de aviso" as aviso
+participant "Serviço de notificação push" as push
+
+== Etapa 1 · Diagnóstico por voz ==
+mec -> app : grava o áudio com sintoma, diagnóstico e peças
+app -> api : envia o áudio da ordem de serviço
+api -> voz : pede a lista de peças
+voz -[#gray,dashed]> trans : envia o áudio para transcrever (a confirmar)
+trans -[#gray,dashed]> voz : devolve o texto (a confirmar)
+voz -> api : devolve a lista de peças com quantidade
+api -> banco : grava o áudio, a transcrição e a lista
+api -> app : mostra a lista para conferir
+alt a transcrição errou uma peça
+  mec -> app : corrige a peça ou regrava por voz
+  app -> api : envia a lista corrigida
+end
+mec -> app : confirma a lista e envia ao gerente
+app -> api : grava a lista conferida
+api -> banco : marca a lista como enviada
+
+== Etapa 2 · Pedido de cotação ==
+gdono -> painel : pede a cotação da lista
+painel -> api : envia a seleção de fornecedores
+api -> cot : pede a cotação das peças
+cot -> api : sugere os fornecedores pela categoria da peça
+api -> painel : mostra a sugestão para ajustar
+gdono -> painel : confirma ou ajusta os fornecedores
+painel -> api : grava a seleção final
+api -> cot : manda enviar o pedido aos fornecedores marcados
+cot -> zap : envia o pedido de preço a cada fornecedor
+zap -> cot : entrega preço e prazo de cada resposta
+cot -> api : devolve as respostas consolidadas
+api -> banco : grava as cotações
+api -> aviso : informa que a cotação foi respondida
+aviso -[#gray,dashed]> push : pede a notificação ao mecânico responsável (a confirmar)
+alt um fornecedor não responde
+  cot -[#gray,dashed]> api : avisa o gerente que o fornecedor não respondeu (a confirmar)
+end
+
+== Etapa 3 · Escolha do fornecedor ==
+api -> painel : mostra o comparativo de preço e prazo
+gdono -> painel : o dono escolhe o fornecedor
+alt o gerente tenta escolher
+  painel -> gdono : bloqueia e pede a decisão do dono
+end
+painel -> api : grava o fornecedor escolhido
+api -> cot : manda avisar o fornecedor escolhido
+cot -> zap : avisa o fornecedor escolhido, sem compra nem pagamento
+api -> banco : grava a escolha
+
+note right of banco
+  O sistema não compra a peça nem paga o fornecedor.
+end note
+
+legend left
+  Dúvidas em aberto
+  — Qual serviço transcreve o áudio do mecânico? — P-09
+  — Quanto tempo o agente espera antes de avisar o gerente? — P-12
+  — Qual serviço entrega a notificação push ao celular? — P-09
+end legend
+@enduml

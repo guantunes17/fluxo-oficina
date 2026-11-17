@@ -1,0 +1,66 @@
+@startuml FLOW-02-etapa-e-aviso
+' ============================================================
+'  FLOW-02 · Como a ordem de serviço abre, muda de etapa e avisa o cliente
+'  Convenção: seta cheia = confirmado, inclusive a resposta · seta cinza tracejada = dúvida.
+'  O desenho não leva ID: cada dúvida vira pergunta na legenda, e o resto fica no Fonte.
+'  Fonte: jornada "Acompanhar o serviço e avisar o cliente", fluxo principal. EF Macro v0.7, RF-03, RF-04, RF-06, RF-07, RN-03, RN-06, RN-07, §7.1 passos 1, 6, 7 e 8 e §7.2 fluxo 3. Lido em 2026-11-17.
+' ============================================================
+skinparam responseMessageBelowArrow true
+skinparam maxMessageSize 220
+
+title Como a ordem de serviço abre, muda de etapa e avisa o cliente
+
+actor "Recepção" as rec
+actor "Mecânico" as mec
+actor "Dono ou gerente" as gdono
+participant "Painel web" as painel
+participant "App do mecânico" as app
+participant "API" as api
+database "Banco de dados" as banco
+participant "Agente de aviso" as aviso
+participant "WhatsApp" as zap
+participant "Serviço de notificação push" as push
+
+== Etapa 1 · Abertura da ordem ==
+rec -> painel : informa cliente, telefone, placa, modelo, sintoma e mecânico responsável
+painel -> api : envia a abertura da ordem
+api -> banco : grava a ordem na etapa diagnóstico
+api -> aviso : informa a ordem atribuída
+aviso -[#gray,dashed]> push : pede a notificação ao mecânico responsável (a confirmar)
+api -> painel : mostra a ordem no quadro
+
+== Etapa 2 · Mudança de etapa ==
+alt o mecânico muda a etapa
+  mec -> app : escolhe a nova etapa da ordem
+  app -> api : envia a nova etapa
+else recepção, gerente ou dono muda a etapa
+  rec -> painel : escolhe a nova etapa da ordem
+  painel -> api : envia a nova etapa
+end
+api -> banco : grava a etapa com autor, data e hora
+api -> aviso : informa a etapa nova
+
+== Etapa 3 · Aviso ao cliente ==
+aviso -[#gray,dashed]> zap : envia a mensagem curta ao cliente (a confirmar)
+aviso -> api : devolve o aviso enviado
+api -> banco : grava o aviso no histórico
+api -> painel : mostra o histórico de avisos
+
+== Etapa 4 · Cancelamento ==
+alt dono ou gerente cancela o serviço
+  gdono -> painel : confirma o cancelamento
+  painel -> api : envia o cancelamento
+  api -> banco : tira a ordem do quadro e marca como cancelada
+end
+
+note right of banco
+  O aviso sai só quando a etapa muda. O cliente aprova o serviço por telefone ou mensagem, e o atendente registra mudando a etapa.
+end note
+
+legend left
+  Dúvidas em aberto
+  — O cliente de um serviço longo aceita aviso a cada etapa pelo WhatsApp? — P-07
+  — Qual serviço entrega a notificação push ao celular? — P-09
+  — Quem atribui a ordem a um mecânico? — P-29
+end legend
+@enduml
