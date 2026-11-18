@@ -8,7 +8,7 @@
 | **Autoridade visual** | DS próprio, `fluxo-oficina-ds` (https://github.com/guantunes17/fluxo-oficina-ds), feito do zero sobre o shadcn/ui, com Inter e tokens petróleo, âmbar e neutro frio. Pacotes web e native (Expo). Não usa o DS XPRINTS (decisão da pessoa em 2026-11-17) |
 | **Superfícies** | App mobile em Expo (React Native) para o mecânico, sempre com internet. Painel web desktop para dono, gerente e recepção. Cliente final por WhatsApp. Três repositórios de código (mobile, painel, agentes) e este repositório como hub de especificação (decisão da pessoa em 2026-11-17) |
 | **Fase atual** | 2 · Diagnóstico e validação |
-| **Passo atual** | 2.61E · `exploratory-prototype-from-ef-macro`, comparação revisada em 2026-11-17 |
+| **Passo atual** | 2.61E · `exploratory-prototype-from-ef-macro`, comparação revisada em 2026-11-17, protótipo na rodada 6 (revisão de UI/UX) |
 | **Próximo passo** | 2.62 · `activity-diagrams-from-ef-macro`, depois da aprovação da arquitetura alvo pela Liderança |
 | **Ciclo** | 1 |
 | **Atualizado em** | 2026-11-17|
@@ -81,7 +81,7 @@
 | 2.54 | 03 | D-11 e D-25 | `diagnosis-deck-from-discovery` | pulado | | 2026-11-17 | entrada direta pela Validação: discovery feito fora da pipeline |
 | 2.60 | 06 | D-62 Protótipo navegável do conceito macro | `brief-from-context-sources` | concluído | `docs/demandas/d1-fluxooficina/brief.md` | 2026-11-17 | estado reconstruído a partir do artefato |
 | 2.60O | 06 | D-62 | `opportunity-tree-from-brief` | concluído | `docs/demandas/d1-fluxooficina/descoberta/arvore.md` | 2026-11-17 | estado reconstruído a partir do artefato |
-| 2.61 | 06 | D-62 | `ef-macro-from-brief` | em andamento | `docs/demandas/d1-fluxooficina/ef-macro.md` | 2026-11-17 | EF Macro v0.8 em Rascunho, com os achados das rodadas 1 e 2 aplicados e o probe de completude da §7.1 conferido |
+| 2.61 | 06 | D-62 | `ef-macro-from-brief` | em andamento | `docs/demandas/d1-fluxooficina/ef-macro.md` | 2026-11-17 | EF Macro v0.8 em Rascunho, com os achados das rodadas 1 a 5 aplicados e o probe de completude da §7.1 conferido |
 
 ## Gates
 
@@ -113,6 +113,7 @@
 | protótipo exploratório | `prototipo-exploratorio/` | https://claude.ai/artifact/E9LmMjG7nRcsMWTzEn7P7j | protótipo 2026-11-18, rodada 3 com os tokens do DS próprio | Gustavo Antunes | 2026-11-18 |
 | protótipo exploratório | `prototipo-exploratorio/` | https://claude.ai/artifact/E9LmMjG7nRcsMWTzEn7P7j | protótipo 2026-11-18, rodada 4 com os tokens semânticos expandidos | Gustavo Antunes | 2026-11-18 |
 | protótipo exploratório | `prototipo-exploratorio/` | https://claude.ai/artifact/E9LmMjG7nRcsMWTzEn7P7j | protótipo 2026-11-18, rodada 5 com os tokens `soft`/`surface`, os papéis de tipografia e os componentes novos do DS (versão 10 do canvas) | Gustavo Antunes | 2026-11-18 |
+| protótipo exploratório | `prototipo-exploratorio/` | https://claude.ai/artifact/E9LmMjG7nRcsMWTzEn7P7j | protótipo 2026-11-17, rodada 6 com a revisão de UI/UX (acessibilidade, becos sem saída, estados vazios e de erro). **Código pronto no repositório, ainda não publicado no canvas** | | 2026-11-17 |
 
 ## Pendências que travam
 
