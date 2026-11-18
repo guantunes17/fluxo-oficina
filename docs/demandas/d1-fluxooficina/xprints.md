@@ -113,7 +113,7 @@
 | protótipo exploratório | `prototipo-exploratorio/` | https://claude.ai/artifact/E9LmMjG7nRcsMWTzEn7P7j | protótipo 2026-11-18, rodada 3 com os tokens do DS próprio | Gustavo Antunes | 2026-11-18 |
 | protótipo exploratório | `prototipo-exploratorio/` | https://claude.ai/artifact/E9LmMjG7nRcsMWTzEn7P7j | protótipo 2026-11-18, rodada 4 com os tokens semânticos expandidos | Gustavo Antunes | 2026-11-18 |
 | protótipo exploratório | `prototipo-exploratorio/` | https://claude.ai/artifact/E9LmMjG7nRcsMWTzEn7P7j | protótipo 2026-11-18, rodada 5 com os tokens `soft`/`surface`, os papéis de tipografia e os componentes novos do DS (versão 10 do canvas) | Gustavo Antunes | 2026-11-18 |
-| protótipo exploratório | `prototipo-exploratorio/` | https://claude.ai/artifact/E9LmMjG7nRcsMWTzEn7P7j | protótipo 2026-11-17, rodada 6 com a revisão de UI/UX (acessibilidade, becos sem saída, estados vazios e de erro). **Código pronto no repositório, ainda não publicado no canvas** | | 2026-11-17 |
+| protótipo exploratório | `prototipo-exploratorio/` | https://claude.ai/artifact/E9LmMjG7nRcsMWTzEn7P7j | protótipo 2026-11-17, rodada 6 com a revisão de UI/UX (acessibilidade, becos sem saída, estados vazios e de erro, bordas `border-strong`) (versão 11 do canvas) | Gustavo Antunes | 2026-11-17 |
 
 ## Pendências que travam
 
