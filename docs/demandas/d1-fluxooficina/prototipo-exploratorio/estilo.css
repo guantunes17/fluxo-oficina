@@ -99,3 +99,6 @@ th{font:var(--role-label)}
 .sdot>i.g{background:var(--success)}.sdot>i.o{background:var(--warning)}
 .os:hover{background:var(--info-surface)}
 .alert.g{border-color:var(--success-border)}
+:where(.btn,.opt,.ocard,.os,.sel,.in,summary,input[type=checkbox],input[type=radio]):focus-visible{outline:2px solid var(--ring);outline-offset:2px}
+.btn[disabled]{background:var(--surface-sunken);border-color:var(--border);color:var(--muted-foreground)}
+.col h3{font-size:14px}
