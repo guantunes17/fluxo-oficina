@@ -3,7 +3,7 @@
 '  FLOW-01 · Como o diagnóstico do mecânico vira a escolha do fornecedor
 '  Convenção: seta cheia = confirmado, inclusive a resposta · seta cinza tracejada = dúvida.
 '  O desenho não leva ID: cada dúvida vira pergunta na legenda, e o resto fica no Fonte.
-'  Fonte: jornada "Do diagnóstico por voz à peça escolhida", fluxo principal. EF Macro v0.7, RF-01, RF-02, RF-07, RN-01, RN-02, RN-05, §7.1 passos 3 a 5 e §7.2 fluxos 1 e 2. Lido em 2026-11-17.
+'  Fonte: jornada "Do diagnóstico por voz à peça escolhida", fluxo principal. EF Macro v0.8, RF-01, RF-02, RF-07, RN-01, RN-02, RN-05, §7.1 passos 3 a 5 e §7.2 fluxos 1 e 2. Lido em 2026-11-17.
 ' ============================================================
 skinparam responseMessageBelowArrow true
 skinparam maxMessageSize 220

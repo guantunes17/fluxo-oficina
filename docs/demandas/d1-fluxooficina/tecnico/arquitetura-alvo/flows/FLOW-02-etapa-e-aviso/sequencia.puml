@@ -3,7 +3,7 @@
 '  FLOW-02 · Como a ordem de serviço abre, muda de etapa e avisa o cliente
 '  Convenção: seta cheia = confirmado, inclusive a resposta · seta cinza tracejada = dúvida.
 '  O desenho não leva ID: cada dúvida vira pergunta na legenda, e o resto fica no Fonte.
-'  Fonte: jornada "Acompanhar o serviço e avisar o cliente", fluxo principal. EF Macro v0.7, RF-03, RF-04, RF-06, RF-07, RN-03, RN-06, RN-07, §7.1 passos 1, 6, 7 e 8 e §7.2 fluxo 3. Lido em 2026-11-17.
+'  Fonte: jornada "Acompanhar o serviço e avisar o cliente", fluxo principal. EF Macro v0.8, RF-03, RF-04, RF-06, RF-07, RN-03, RN-06, RN-07, §7.1 passos 1, 6, 7 e 8 e §7.2 fluxo 3. Lido em 2026-11-17.
 ' ============================================================
 skinparam responseMessageBelowArrow true
 skinparam maxMessageSize 220

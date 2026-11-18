@@ -81,7 +81,7 @@
 | 2.54 | 03 | D-11 e D-25 | `diagnosis-deck-from-discovery` | pulado | | 2026-11-17 | entrada direta pela Validação: discovery feito fora da pipeline |
 | 2.60 | 06 | D-62 Protótipo navegável do conceito macro | `brief-from-context-sources` | concluído | `docs/demandas/d1-fluxooficina/brief.md` | 2026-11-17 | estado reconstruído a partir do artefato |
 | 2.60O | 06 | D-62 | `opportunity-tree-from-brief` | concluído | `docs/demandas/d1-fluxooficina/descoberta/arvore.md` | 2026-11-17 | estado reconstruído a partir do artefato |
-| 2.61 | 06 | D-62 | `ef-macro-from-brief` | em andamento | `docs/demandas/d1-fluxooficina/ef-macro.md` | 2026-11-17 | EF Macro v0.7 em Rascunho, com os achados da rodada 2 aplicados |
+| 2.61 | 06 | D-62 | `ef-macro-from-brief` | em andamento | `docs/demandas/d1-fluxooficina/ef-macro.md` | 2026-11-17 | EF Macro v0.8 em Rascunho, com os achados das rodadas 1 e 2 aplicados e o probe de completude da §7.1 conferido |
 
 ## Gates
 

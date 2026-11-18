@@ -1,6 +1,6 @@
 # Comparação EF Macro × protótipo exploratório — FluxoOficina
 
-- **EF Macro:** `docs/demandas/d1-fluxooficina/ef-macro.md`, versão 0.7 (Rascunho). Os achados da rodada 1 entraram na versão 0.5, a decisão de plataforma (app mobile e painel desktop) na versão 0.6, e os achados da rodada 2 na versão 0.7, todas em 2026-11-17
+- **EF Macro:** `docs/demandas/d1-fluxooficina/ef-macro.md`, versão 0.8 (Rascunho). Os achados da rodada 1 entraram na versão 0.5, a decisão de plataforma (app mobile e painel desktop) na 0.6, os achados da rodada 2 na 0.7 e o design system próprio na 0.8, entre 17 e 18/11/2026
 - **Recorte:** primeira release r1-mvp: RF-01 a RF-07 (Must-have da §2, [lente](../releases/r1-mvp/ef-macro-r1-mvp.md)) · RFs fora do recorte: 0. Fora também: 3 itens do Should-have, que não têm RF numerado
 - **Protótipo:** `docs/demandas/d1-fluxooficina/prototipo-exploratorio/` (fonte local `Main.dc.html`, a mesma que está publicada no canvas) · canvas: https://claude.ai/artifact/E9LmMjG7nRcsMWTzEn7P7j
 - **Lista fechada de componentes, painel web:** DS próprio FluxoOficina (`@fluxo-oficina/web`, https://github.com/guantunes17/fluxo-oficina-ds), 20 componentes baseados no shadcn/ui
