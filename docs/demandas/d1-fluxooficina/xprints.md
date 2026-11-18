@@ -5,7 +5,7 @@
 | **Demanda** | `d1-fluxooficina` |
 | **Tipo de entrega** | planejamento em código |
 | **Caminho da estimativa** | prévia |
-| **Autoridade visual** | DS XPRINTS (interna). Fonte vendorizada em `src/ds/`, contexto em `.ai/design/contexto.json` (troca do shadcn/ui pedida pela pessoa em 2026-11-17) |
+| **Autoridade visual** | DS próprio, `fluxo-oficina-ds` (https://github.com/guantunes17/fluxo-oficina-ds), feito do zero sobre o shadcn/ui, com Inter e tokens petróleo, âmbar e neutro frio. Pacotes web e native (Expo). Não usa o DS XPRINTS (decisão da pessoa em 2026-11-17) |
 | **Superfícies** | App mobile em Expo (React Native) para o mecânico, sempre com internet. Painel web desktop para dono, gerente e recepção. Cliente final por WhatsApp. Três repositórios de código (mobile, painel, agentes) e este repositório como hub de especificação (decisão da pessoa em 2026-11-17) |
 | **Fase atual** | 2 · Diagnóstico e validação |
 | **Passo atual** | 2.61E · `exploratory-prototype-from-ef-macro`, comparação revisada em 2026-11-17 |
@@ -116,8 +116,8 @@
 | ID | Origem | Pendência | Passo travado | Dono | Aberta em | Status |
 |---|---|---|---|---|---|---|
 | P-01 | `xprints.md` | Sem estimativa prévia: escopo vendido indefinido. Resposta: projeto interno, sem escopo vendido. O escopo é um sistema multiagentes para auxiliar uma oficina mecânica | importação no XPrints e estimativa da execução | TD Produto | 2026-11-17 | Resolvida em 2026-11-17 |
-| P-02 | `xprints.md` | Autoridade visual (design system) não definida. Resposta inicial: shadcn/ui; trocada em 2026-11-17 pelo DS XPRINTS | 2.66 e 2.67 | a pessoa | 2026-11-17 | Resolvida em 2026-11-17 |
-| P-03 | `xprints.md` | O DS XPRINTS web não roda em React Native: o DS nativo precisa ser adaptado (tokens e 8 a 10 componentes) | 2.66 e Passo 7 do app mobile | TD Produto | 2026-11-17 | Aberta |
+| P-02 | `xprints.md` | Autoridade visual (design system) não definida. Respostas: shadcn/ui, depois DS XPRINTS, e por fim DS próprio do zero (2026-11-17) | 2.66 e 2.67 | a pessoa | 2026-11-17 | Resolvida em 2026-11-17: DS próprio `fluxo-oficina-ds` |
+| P-03 | `xprints.md` | O DS nativo para o app Expo precisava ser criado (tokens e componentes) | 2.66 e Passo 7 do app mobile | TD Produto | 2026-11-17 | Resolvida em 2026-11-17: pacote `@fluxo-oficina/native` com 20 componentes, testado em bundle e em react-native-web (não em aparelho) |
 | P-04 | `xprints.md` | Como o mecânico entra no app (login) e como o app é distribuído (loja ou distribuição interna) | 2.66 e 4.01 | TD Produto | 2026-11-17 | Aberta |
 | P-05 | `xprints.md` | O mecânico recebe notificação push no celular? Sim ou não | 2.61 (§9) | a pessoa | 2026-11-17 | Resolvida em 2026-11-17: sim (RF-07) |
 | P-06 | `ef-macro.md` | Quem atribui a ordem a um mecânico, e em que momento (P-29 da EF Macro) | 2.66 | a pessoa | 2026-11-17 | Aberta |
@@ -132,3 +132,4 @@
 | 2026-11-17 | Fase 2, passo 2.61 | Fase 2, passo 2.61 | Autoridade visual trocada para o DS XPRINTS; linha 2.61 corrigida para em andamento: a EF Macro segue em Rascunho |
 | 2026-11-17 | Fase 2, passo 2.61E | Fase 2, passo 2.61 | Passo atrás por decisão de plataforma: mecânico em app Expo, painel desktop e três repositórios. Loop esperado, sem novo ciclo. 2.61 e 2.61E voltam a em andamento |
 | 2026-11-17 | Fase 2, passo 2.61 | Fase 2, passo 2.61E | Rodada 2 do protótipo exploratório concluída e comparação revisada. EF Macro v0.7, arquitetura alvo (3 contêineres) e lente r1-mvp gravadas |
+| 2026-11-18 | Fase 2, passo 2.61E | Fase 2, passo 2.61E | Autoridade visual passa a ser o DS próprio `fluxo-oficina-ds`. Fecham as pendências P-02 e P-03. O fonte do XPRINTS foi removido deste repositório |
