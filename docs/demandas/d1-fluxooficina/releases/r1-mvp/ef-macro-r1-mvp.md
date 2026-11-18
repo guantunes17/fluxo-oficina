@@ -1,6 +1,6 @@
 # Lente da release r1-mvp — FluxoOficina
 
-- **EF Macro:** `docs/demandas/d1-fluxooficina/ef-macro.md`, versão 0.6
+- **EF Macro:** `docs/demandas/d1-fluxooficina/ef-macro.md`, versão 0.8
 - **Brief da release:** sem brief da release
 - **Data:** 2026-11-17
 - **Recorte:** aberto: acompanha o must-have da §2
@@ -44,5 +44,4 @@
 | P-29 | Quem atribui a ordem a um mecânico | RF-03 |
 | P-30 | Outros eventos que geram notificação ao mecânico | RF-07 |
 | P-26 | Tamanho máximo e tempo de envio do áudio | RF-01 |
-| P-27 | Adaptação do design system XPRINTS para o app Expo | RF-01, RF-03 |
 | P-28 | Login do mecânico e distribuição do app | RF-01, RF-03 |

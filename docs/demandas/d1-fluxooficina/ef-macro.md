@@ -3,7 +3,7 @@
 | Campo | Valor |
 |---|---|
 | Demanda | d1-fluxooficina |
-| Versão | 0.7 (push ao mecânico e ordem atribuída ao mecânico, protótipo exploratório rodada 2, de 17/11/2026) |
+| Versão | 0.8 (design system próprio, de 18/11/2026) |
 | Status | Rascunho |
 | Data | 17/11/2026 |
 | Autor | `<a preencher>` |
@@ -143,8 +143,8 @@ Decisão da pessoa em 17/11/2026 (Origem: decisão de plataforma de 17/11/2026):
 
 | Superfície | Quem usa | Tecnologia | Conexão |
 |---|---|---|---|
-| App mobile | Mecânico | Expo (React Native), com o design system XPRINTS adaptado | Sempre com internet |
-| Painel web | Dono, gerente e recepção | Aplicação web para computador, com o design system XPRINTS web | Sempre com internet |
+| App mobile | Mecânico | Expo (React Native), com o design system próprio FluxoOficina (`@fluxo-oficina/native`) | Sempre com internet |
+| Painel web | Dono, gerente e recepção | Aplicação web para computador, com o design system próprio FluxoOficina (`@fluxo-oficina/web`) | Sempre com internet |
 | WhatsApp | Cliente final e fornecedor | Canal de mensagem, sem tela própria | — |
 
 O mecânico muda a etapa e grava o diagnóstico no app. O painel completo (quadro por etapa, cotação, fornecedores, histórico de avisos) existe só no computador. O código fica em três repositórios (app mobile, painel web e serviço de agentes), e a especificação fica neste repositório.
@@ -503,7 +503,7 @@ Não aplicável — domínio opera em contexto único.
 | P-24 | Mais de um cliente final pede registro do serviço com fotos e lembretes de revisão, e clientes de serviço longo cobram o status? (sim/não) | §1, §2, RF-04, §11, HIP-14 | Aberta |
 | P-25 | O mecânico recebe notificação push no celular, por exemplo, quando uma cotação é respondida? (sim/não) | §9, RF-02 | Fechada em 17/11/2026: sim, entra na primeira release (RF-07, 2.61E). |
 | P-26 | Qual o tamanho máximo do áudio e o tempo aceitável de envio pelo celular? | §10, RF-01 | Aberta |
-| P-27 | O design system XPRINTS precisa ser adaptado para o app Expo: quem faz e com quais componentes? | §3 Superfícies, RF-01, RF-03 | Aberta |
+| P-27 | O design system do app Expo e do painel: quem faz e com quais componentes? | §3 Superfícies, RF-01, RF-03 | Fechada em 18/11/2026: design system próprio, feito do zero, em https://github.com/guantunes17/fluxo-oficina-ds, com 20 componentes nos pacotes web e native. O nativo só foi verificado em bundle e em react-native-web, não em aparelho. |
 | P-28 | Como o mecânico entra no app (login) e como o app chega ao celular dele (loja ou distribuição interna)? | §3 Superfícies | Aberta |
 | P-29 | Quem atribui a ordem a um mecânico: a recepção, o gerente ou o dono, e em que momento? | RF-03, §3 | Aberta |
 | P-30 | Além da ordem atribuída e da cotação respondida, que outros eventos geram notificação ao mecânico? | RF-07 | Aberta |
@@ -521,3 +521,4 @@ Descobertas ainda sem resposta (🔍 do brief): tempo parado por etapa e taxa de
 | 0.5 | 17/11/2026 | 2.61E (protótipo exploratório) | Incluídos RF-06 (abertura da ordem de serviço), RN-07 (cancelamento) e as linhas "Ver histórico de avisos", "Abrir ordem de serviço" e "Cancelar serviço" na matriz da §3. Alterados RF-02 (fornecedores por categoria e aviso ao fornecedor escolhido), RF-03 (cancelamento), RF-04 (gerente vê o histórico), RN-03 (atendente registra a aprovação) e RN-05 (confirmada). Fechadas P-05 e P-17. Aval: a pessoa, em 17/11/2026, na comparação do protótipo. |
 | 0.6 | 17/11/2026 | Decisão de plataforma | Incluída a seção "Superfícies" na §3: app mobile Expo para o mecânico e painel web para os demais, ambos sempre com internet. Alterados RF-01 e RF-03 (telas por superfície), §8.1, §9 (microfone e push) e §10 (conexão, permissões e envio do áudio). P-14 parcialmente fechada. Novas P-25 a P-28. P-19 fechada: arquitetura alvo e lente da r1-mvp geradas. Aval: a pessoa, em 17/11/2026. |
 | 0.7 | 17/11/2026 | 2.61E (protótipo exploratório, rodada 2) | Incluído RF-07 (notificação push ao mecânico). Alterados RF-03 (mecânico responsável e lista só das ordens dele), §3 (linhas "Atribuir ordem a um mecânico" e "Receber notificação push"), §4.2, §7.1 e §9. Fechada P-25. Novas P-29 e P-30. Aval: a pessoa, em 17/11/2026. |
+| 0.8 | 18/11/2026 | Decisão de design system | A §3 Superfícies passa a citar o design system próprio FluxoOficina, no lugar do XPRINTS. P-27 fechada. Aval: a pessoa, em 17/11/2026. |
