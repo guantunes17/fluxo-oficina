@@ -40,13 +40,13 @@ A recepção abre a ordem no Painel web com o mecânico responsável, e a API a 
 
 | Restrição ou premissa | Tipo | Fonte ou data | O que ela limita |
 |---|---|---|---|
-| O app do mecânico é em Expo (React Native), com o design system XPRINTS adaptado | premissa declarada | 2026-11-17 | [DA-01](#da-01-duas-superfícies-em-três-repositórios-de-código), [DA-02](#da-02-design-system-xprints-adaptado-para-expo) |
-| O painel é uma aplicação web para computador, com o design system XPRINTS web | premissa declarada | 2026-11-17 | [DA-01](#da-01-duas-superfícies-em-três-repositórios-de-código) |
+| O app do mecânico é em Expo (React Native), com o design system próprio FluxoOficina | premissa declarada | 2026-11-17 | [DA-01](#da-01-duas-superfícies-em-três-repositórios-de-código), [DA-02](#da-02-design-system-próprio-em-repositório-à-parte) |
+| O painel é uma aplicação web para computador, com o design system próprio FluxoOficina | premissa declarada | 2026-11-17 | [DA-01](#da-01-duas-superfícies-em-três-repositórios-de-código), [DA-02](#da-02-design-system-próprio-em-repositório-à-parte) |
 | O app e o painel funcionam sempre com internet, sem modo offline | premissa declarada | [EF Macro §8.1](../../ef-macro.md#81-constraints-de-plataforma-e-idioma) | [DA-01](#da-01-duas-superfícies-em-três-repositórios-de-código), App do mecânico |
 | O código fica em três repositórios (app, painel, API com agentes), e este repositório guarda a especificação | premissa declarada | 2026-11-17 | [DA-01](#da-01-duas-superfícies-em-três-repositórios-de-código), [DA-04](#da-04-contratos-rest-no-repositório-hub) |
 | Os fornecedores respondem pedido de preço por WhatsApp | premissa declarada | [EF Macro §9](../../ef-macro.md#9-integrações-e-restrições-conhecidas) | [DA-05](#da-05-agentes-chamados-por-http-interno-sem-fila), Agente de cotação |
 | Não há integração com os sistemas dos fornecedores nem compra automática | premissa declarada | [EF Macro §2](../../ef-macro.md#2-escopo) | Agente de cotação |
-| O design system é o XPRINTS, por se tratar de demanda interna | restrição do cliente | [xprints.md](../../xprints.md) | [DA-02](#da-02-design-system-xprints-adaptado-para-expo) |
+| O design system é próprio, feito do zero, e fica fora da organização wefit | premissa declarada | [xprints.md](../../xprints.md) | [DA-02](#da-02-design-system-próprio-em-repositório-à-parte) |
 
 ## 4. Decisões de arquitetura
 
@@ -63,16 +63,16 @@ A recepção abre a ordem no Painel web com o mecânico responsável, e a API a 
 - **Fonte:** [EF Macro §3](../../ef-macro.md#superfícies), [EF Macro §8.1](../../ef-macro.md#81-constraints-de-plataforma-e-idioma)
 - **Status:** decidida pela pessoa que conduz a demanda em 2026-11-17
 
-### DA-02: Design system XPRINTS adaptado para Expo
+### DA-02: Design system próprio, em repositório à parte
 
-- **Contexto:** o design system XPRINTS existente é React para web, com Tailwind, e não roda em React Native.
-- **Decisão:** adaptar o XPRINTS para Expo, a partir dos tokens de cor e de tipografia, com só os componentes que as telas do mecânico usam.
-- **Porquê:** a demanda é interna, e a autoridade visual é o XPRINTS, registrada no [xprints.md](../../xprints.md).
-- **Alternativa descartada:** um app web responsivo, instalável, que reaproveitaria o design system web. Foi descartada porque a pessoa escolheu o app nativo em Expo.
-- **Consequência:** o design system nativo é trabalho novo e precisa de dono. Até ele existir, o protótipo do mecânico usa só os tokens (P-27).
+- **Contexto:** o app Expo e o painel web precisam de componentes iguais em nome e em variante, e não existia design system para nenhum dos dois.
+- **Decisão:** um design system próprio, feito do zero sobre os componentes do shadcn/ui, com tokens de cor (azul-petróleo, âmbar, neutro frio) e tipografia Inter. Ele vive em [fluxo-oficina-ds](https://github.com/guantunes17/fluxo-oficina-ds), com os pacotes `@fluxo-oficina/tokens`, `@fluxo-oficina/web` e `@fluxo-oficina/native`. Os repositórios do app e do painel o consomem como dependência.
+- **Porquê:** o repositório fica fora da organização wefit e pode ser publicado, e os dois fronts dividem uma fonte única de tokens.
+- **Alternativa descartada:** adaptar um design system já existente da WeFit. A pessoa decidiu fazer um do zero, sem se inspirar nele, para poder publicá-lo.
+- **Consequência:** 20 componentes nos dois pacotes, com 19 testes no web e 28 no nativo, contraste medido no Chrome nos dois temas e o `expo export` compilando para iOS, Android e web. O comportamento em aparelho real não foi verificado, porque o ambiente de desenvolvimento não tinha simulador. A publicação no npm segue pendente da pessoa.
 - **Ação do catálogo:** nenhuma
 - **Fonte:** [xprints.md](../../xprints.md), [comparação do protótipo](../../prototipo-exploratorio/comparacao.md)
-- **Status:** pendência do cliente desde 2026-11-17
+- **Status:** decidida pela pessoa que conduz a demanda em 2026-11-17
 
 ### 4.2 BFF
 
