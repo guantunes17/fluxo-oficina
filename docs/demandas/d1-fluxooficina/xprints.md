@@ -110,6 +110,7 @@
 | protótipo exploratório | `prototipo-exploratorio/` | https://claude.ai/artifact/E9LmMjG7nRcsMWTzEn7P7j | protótipo 2026-11-17, visão de quadros estilo Figma | Gustavo Antunes | 2026-11-17 |
 | protótipo exploratório | `prototipo-exploratorio/` | https://claude.ai/artifact/E9LmMjG7nRcsMWTzEn7P7j | protótipo 2026-11-17, rodada 2: app mobile e painel desktop | Gustavo Antunes | 2026-11-17 |
 | protótipo exploratório | `prototipo-exploratorio/` | https://claude.ai/artifact/E9LmMjG7nRcsMWTzEn7P7j | protótipo 2026-11-17, rodada 2 com push e ordem atribuída | Gustavo Antunes | 2026-11-17 |
+| protótipo exploratório | `prototipo-exploratorio/` | https://claude.ai/artifact/E9LmMjG7nRcsMWTzEn7P7j | protótipo 2026-11-18, rodada 3 com os tokens do DS próprio | Gustavo Antunes | 2026-11-18 |
 
 ## Pendências que travam
 
