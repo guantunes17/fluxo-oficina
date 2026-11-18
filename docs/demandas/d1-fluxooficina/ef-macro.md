@@ -362,20 +362,33 @@ Um cliente final (`E3`) usa WhatsApp e já recebe o aviso de "pronto" do mecâni
 
 Etapas inferidas das fontes (Sugestão). A pergunta de ator e gatilho de cada etapa ficou em branco no brief. As fontes só dizem que o diagnóstico mudou com o tamanho da equipe, e não comparam oficinas de outro porte. (P-13)
 
-1. O cliente deixa o carro. A recepção abre a ordem de serviço (RF-06), e a ordem vai para um mecânico responsável (RF-03, P-29). O mecânico recebe uma notificação no celular (RF-07).
-2. O mecânico faz o test drive e define o diagnóstico. Leva de 1 a 2 horas quando há vaga.
-3. O mecânico grava o áudio com o diagnóstico e as peças (RF-01).
-4. O gerente ou o dono pede a cotação (RF-02), com os fornecedores sugeridos pela categoria da peça e ajustados por eles. O serviço passa para "aguardando peça" (RF-03).
-5. O agente de cotação recebe as respostas. O dono escolhe o fornecedor, e o agente avisa o fornecedor escolhido por WhatsApp. Quando as respostas da cotação chegam, o mecânico responsável recebe uma notificação no celular (RF-07).
-6. O cliente aprova o serviço, e o atendente registra a aprovação mudando a etapa (RN-03, P-06).
-7. A peça chega. O mecânico executa o serviço. A etapa passa para "execução" e depois para "pronto".
-8. A cada mudança de etapa, o cliente recebe um aviso (RF-04).
+1. **Fase 1:** o cliente deixa o carro. A recepção abre a ordem de serviço (RF-06), e a ordem vai para um mecânico responsável (RF-03, P-29). O mecânico recebe uma notificação no celular (RF-07).
+2. **Fase 2:** o mecânico faz o test drive e define o diagnóstico. Leva de 1 a 2 horas quando há vaga.
+3. **Fase 3:** o mecânico grava o áudio com o diagnóstico e as peças (RF-01) e confere a lista.
+4. **Fase 4:** o gerente ou o dono pede a cotação (RF-02), com os fornecedores sugeridos pela categoria da peça e ajustados por eles. O serviço passa para "aguardando peça" (RF-03).
+5. **Fase 5:** o agente de cotação recebe as respostas. O dono escolhe o fornecedor, e o agente avisa o fornecedor escolhido por WhatsApp. Quando as respostas da cotação chegam, o mecânico responsável recebe uma notificação no celular (RF-07).
+6. **Fase 6:** o cliente aprova o serviço, e o atendente registra a aprovação mudando a etapa (RN-03, P-06).
+7. **Fase 7:** a peça chega. O mecânico executa o serviço. A etapa passa para "execução" e depois para "pronto".
+8. **Fase 8:** a cada mudança de etapa, o cliente recebe um aviso (RF-04).
+
+**Probe de completude por fase**
+
+| Fase | Pré-condição | Documento exigido | Quem aprova | Prazo | Exceção |
+|---|---|---|---|---|---|
+| Fase 1 | O cliente deixou o carro (RF-06) | Não aplicável — porque a abertura registra só dados do cliente e do veículo (RF-06) | Não aplicável — porque só a recepção abre a ordem e ninguém aprova a abertura (§3, RF-06) | [A DEFINIR] (P-12) | "Exceção de regra ou permissão" |
+| Fase 2 | A ordem está aberta e atribuída a um mecânico (RF-03). Quem atribui: [A DEFINIR] (P-29) | Não aplicável — porque o diagnóstico é falado no áudio da Fase 3 (RF-01) | Não aplicável — porque o diagnóstico não passa por aprovação na EF (RF-01, RF-03) | De 1 a 2 horas quando há vaga (§7.1, Fase 2) | "Dado inválido ou incompleto" |
+| Fase 3 | O app tem internet e o microfone liberado (§8.1, §10) | O áudio do mecânico e a lista de peças (RF-01) | O mecânico confere a lista antes de enviar (RF-01) | [A DEFINIR] (P-26) | "Dado inválido ou incompleto" |
+| Fase 4 | A lista de peças está conferida e enviada ao gerente (RF-01) | A lista de peças com quantidade e categoria (RF-02) | Não aplicável — porque o pedido só exige que o gerente ou o dono o faça (RF-02, §3) | [A DEFINIR] (P-12) | "Falha de serviço externo" |
+| Fase 5 | As respostas dos fornecedores chegaram (RF-02) | O comparativo de preço e prazo (RF-02) | O dono escolhe o fornecedor (RN-02) | [A DEFINIR] (P-12) | "Exceção de regra ou permissão" |
+| Fase 6 | O cliente conhece o diagnóstico e o preço (RN-03) | [A DEFINIR] (P-06) | O cliente aprova, e o atendente registra a aprovação (RN-03) | [A DEFINIR] (P-06) | "Desistência ou cancelamento" |
+| Fase 7 | A peça chegou e o cliente aprovou o serviço (RN-03, Fase 6) | Não aplicável — porque a EF não pede documento na execução (RF-03) | Não aplicável — porque a aprovação foi dada na Fase 6 (RN-03, Fase 6) | [A DEFINIR] (P-06) | "Desistência ou cancelamento" |
+| Fase 8 | A etapa da ordem mudou (RN-06) | A mensagem curta com a etapa atual (RF-04) | Não aplicável — porque o aviso sai sozinho, sem aprovação (RN-06, RF-04) | [A DEFINIR] (P-12) | "Falha de serviço externo" |
 
 ### 7.2 Fluxos alternativos
 
-Categorias assumidas: dado inválido ou incompleto, falha de sistema ou serviço externo, desistência ou cancelamento, e exceção de regra ou permissão.
+Cenários assumidos, um por categoria: dado inválido ou incompleto, falha de sistema ou serviço externo, desistência ou cancelamento, e exceção de regra ou permissão.
 
-| Categoria | Fluxo | Tratamento proposto |
+| Cenário | Fluxo | Tratamento proposto |
 |---|---|---|
 | Dado inválido ou incompleto | O áudio fica ininteligível ou a transcrição erra a peça. | O mecânico corrige a lista na tela de conferência antes de enviar. |
 | Falha de serviço externo | O fornecedor demora a responder à cotação. | Hoje a oficina liga (`NOTA-R`). O agente avisa o gerente, e o pedido pode ir a outro fornecedor. Prazo de espera [A DEFINIR] (P-12). |
@@ -519,6 +532,6 @@ Descobertas ainda sem resposta (🔍 do brief): tempo parado por etapa e taxa de
 |---|---|---|---|
 | 0.4 | 30/10/2026 | 1 | Análise da Pitz, respostas do Roberto e cliente final nº 1. |
 | 0.5 | 17/11/2026 | 2.61E (protótipo exploratório) | Incluídos RF-06 (abertura da ordem de serviço), RN-07 (cancelamento) e as linhas "Ver histórico de avisos", "Abrir ordem de serviço" e "Cancelar serviço" na matriz da §3. Alterados RF-02 (fornecedores por categoria e aviso ao fornecedor escolhido), RF-03 (cancelamento), RF-04 (gerente vê o histórico), RN-03 (atendente registra a aprovação) e RN-05 (confirmada). Fechadas P-05 e P-17. Aval: a pessoa, em 17/11/2026, na comparação do protótipo. |
-| 0.6 | 17/11/2026 | Decisão de plataforma | Incluída a seção "Superfícies" na §3: app mobile Expo para o mecânico e painel web para os demais, ambos sempre com internet. Alterados RF-01 e RF-03 (telas por superfície), §8.1, §9 (microfone e push) e §10 (conexão, permissões e envio do áudio). P-14 parcialmente fechada. Novas P-25 a P-28. P-19 fechada: arquitetura alvo e lente da r1-mvp geradas. Aval: a pessoa, em 17/11/2026. |
-| 0.7 | 17/11/2026 | 2.61E (protótipo exploratório, rodada 2) | Incluído RF-07 (notificação push ao mecânico). Alterados RF-03 (mecânico responsável e lista só das ordens dele), §3 (linhas "Atribuir ordem a um mecânico" e "Receber notificação push"), §4.2, §7.1 e §9. Fechada P-25. Novas P-29 e P-30. Aval: a pessoa, em 17/11/2026. |
+| 0.6 | 17/11/2026 | Decisão de plataforma | Incluída a seção "Superfícies" na §3: app mobile Expo para o mecânico e painel web para os demais, ambos sempre com internet. Alterados RF-01 e RF-03 (telas por superfície), §8.1, §9 (microfone e push) e §10 (conexão, permissões e envio do áudio). P-14 parcialmente fechada. Novas P-25 a P-28. P-19 fechada: arquitetura alvo e lente da r1-mvp geradas. Aval: a pessoa, em 17/11/2026. A §7.1 ganhou as 8 fases numeradas e a tabela do probe de completude, e o 7.2 passou a chamar a primeira coluna de Cenário. |
+| 0.7 | 17/11/2026 | 2.61E (protótipo exploratório, rodada 2) | Incluído RF-07 (notificação push ao mecânico). Alterados RF-03 (mecânico responsável e lista só das ordens dele), §3 (linhas "Atribuir ordem a um mecânico" e "Receber notificação push"), §4.2, §7.1 e §9. Fechada P-25. Novas P-29 e P-30. Aval: a pessoa, em 17/11/2026. A §7.1 ganhou as 8 fases numeradas e a tabela do probe de completude, e o 7.2 passou a chamar a primeira coluna de Cenário. |
 | 0.8 | 18/11/2026 | Decisão de design system | A §3 Superfícies passa a citar o design system próprio FluxoOficina, no lugar do XPRINTS. P-27 fechada. Aval: a pessoa, em 17/11/2026. |
