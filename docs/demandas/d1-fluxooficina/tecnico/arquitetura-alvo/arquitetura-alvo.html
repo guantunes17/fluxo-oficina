@@ -284,7 +284,7 @@
         <span class="legenda-item"><span class="legenda-bola" style="background:#dcfce7;border-color:#15803d"></span>Existente e validado</span>
         <span class="legenda-item"><span class="legenda-bola" style="background:#fef3c7;border-color:#b45309"></span>Provável, a validar</span>
         <span class="legenda-item"><span class="legenda-bola" style="background:#d5eef2;border-color:#1f566a"></span>Novo: a WeFit constrói</span>
-        <span class="legenda-item"><span class="legenda-bola" style="background:#f5edfa;border-color:#783c8f"></span>Novo: o cliente constrói</span>
+        <span class="legenda-item"><span class="legenda-bola" style="background:#dce6fd;border-color:#243d9c"></span>Novo: o cliente constrói</span>
       </div>
       <div class="legenda-grupo">
         <span class="legenda-titulo">Tipo</span>
@@ -623,12 +623,15 @@
     vermelho: "Novo: construir ou contratar",
     misto: "Status misto"
   };
+  // Os nomes dos status (verde, amarelo, azul, roxo) são os do modelo e do conferir-desenho.py. As cores são tokens
+  // do @fluxo-oficina/tokens: verde = success, amarelo = warning, azul = info (petróleo), vermelho = danger e
+  // roxo = highlight (azul cobalto). O design system não tem escala roxa, e o nome "roxo" é só o do status.
   var STATUS_COR = {
     verde:    { bg: "#dcfce7", borda: "#15803d", texto: "#166534" },
     amarelo:  { bg: "#fef3c7", borda: "#b45309", texto: "#78350f" },
     azul:     { bg: "#d5eef2", borda: "#1f566a", texto: "#1e3d4b" },
-    roxo:     { bg: "#f5edfa", borda: "#783c8f", texto: "#552e61" },
-    vermelho: { bg: "#fde5e3", borda: "#d53d2d", texto: "#7b2921" },
+    roxo:     { bg: "#dce6fd", borda: "#243d9c", texto: "#1b2a5c" },
+    vermelho: { bg: "#fee2e2", borda: "#b91c1c", texto: "#991b1b" },
     misto:    { bg: "#eceff1", borda: "#66717a", texto: "#3a434a" }
   };
   // O estado é da tecnologia, não da caixa: ele responde se ela entra com o
